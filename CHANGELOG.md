@@ -6,6 +6,9 @@ directly impact users rather than highlighting other crucial architectural updat
 
 ## [Unreleased]
 
+### Added
+- Server Setup UI reworked with Automatic/Manual connection mode.
+
 ## 3.3.1 build 1 (2026-05-06)
 
 ### Fixed
@@ -916,4 +919,3 @@ issue for more details.
 --------
 - Added SwiftGen templates for generating asset helper files.
 - Added Code Review Guides, Changelog, pull request and issue templates, SwiftLint Rules
-
