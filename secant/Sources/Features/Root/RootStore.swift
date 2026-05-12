@@ -11,6 +11,13 @@ struct Root {
         static let maxResetZashiSDKAttempts = 3
     }
 
+    private enum StartupServerBenchmarkDefaults {
+        static let connectionTimeoutMilliseconds = 300.0
+        static let evaluationTimeoutSeconds = 5.0
+        static let blocksToDownload: UInt64 = 1
+        static let serverCount = 1
+    }
+
     @ObservableState
     struct State {
         enum Path {
@@ -432,11 +439,11 @@ struct Root {
                     let endpoints = ZcashSDKEnvironment.endpoints(for: network)
 
                     let bestServers = await sdkSynchronizer.evaluateBestOf(
-                        endpoints,   // candidates
-                        300.0,       // connectionTimeoutMs
-                        5.0,         // evaluationTimeoutSec (lightweight: 1 block, 5s cap)
-                        1,           // blocksToDownload
-                        1,           // topK
+                        endpoints,
+                        StartupServerBenchmarkDefaults.connectionTimeoutMilliseconds,
+                        StartupServerBenchmarkDefaults.evaluationTimeoutSeconds,
+                        StartupServerBenchmarkDefaults.blocksToDownload,
+                        StartupServerBenchmarkDefaults.serverCount,
                         network
                     )
 
