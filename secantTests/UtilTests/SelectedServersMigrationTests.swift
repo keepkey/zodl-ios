@@ -8,11 +8,15 @@
 import XCTest
 import ComposableArchitecture
 import ZcashLightClientKit
-import UserPreferencesStorage
-import Generated
-@testable import ServerSetup
-@testable import ZcashSDKEnvironment
 @testable import secant_testnet
+
+private final class UncheckedSendableBox<Value>: @unchecked Sendable {
+    var value: Value
+
+    init(_ value: Value) {
+        self.value = value
+    }
+}
 
 class SelectedServersMigrationTests: XCTestCase {
 
@@ -25,19 +29,19 @@ class SelectedServersMigrationTests: XCTestCase {
             isCustom: true
         )
 
-        var capturedSelectedServers: UserPreferencesStorage.SelectedServersConfig?
+        let capturedSelectedServers = UncheckedSendableBox<UserPreferencesStorage.SelectedServersConfig?>(nil)
 
         withDependencies {
             $0.userStoredPreferences.server = { customServer }
             $0.userStoredPreferences.selectedServers = { nil }
             $0.userStoredPreferences.setSelectedServers = { config in
-                capturedSelectedServers = config
+                capturedSelectedServers.value = config
             }
         } operation: {
             ZcashSDKEnvironment.initializeSelectedServersIfNeeded(for: .mainnet)
         }
 
-        let result = try XCTUnwrap(capturedSelectedServers, "Migration should have persisted a selectedServers config")
+        let result = try XCTUnwrap(capturedSelectedServers.value, "Migration should have persisted a selectedServers config")
 
         XCTAssertEqual(result.mode, .manual, "Custom server user should be set to manual mode")
         XCTAssertEqual(result.servers.count, 1, "Custom server user should have exactly 1 selected server")
@@ -53,19 +57,19 @@ class SelectedServersMigrationTests: XCTestCase {
             isCustom: false
         )
 
-        var capturedSelectedServers: UserPreferencesStorage.SelectedServersConfig?
+        let capturedSelectedServers = UncheckedSendableBox<UserPreferencesStorage.SelectedServersConfig?>(nil)
 
         withDependencies {
             $0.userStoredPreferences.server = { infraServer }
             $0.userStoredPreferences.selectedServers = { nil }
             $0.userStoredPreferences.setSelectedServers = { config in
-                capturedSelectedServers = config
+                capturedSelectedServers.value = config
             }
         } operation: {
             ZcashSDKEnvironment.initializeSelectedServersIfNeeded(for: .mainnet)
         }
 
-        let result = try XCTUnwrap(capturedSelectedServers, "Migration should have persisted a selectedServers config")
+        let result = try XCTUnwrap(capturedSelectedServers.value, "Migration should have persisted a selectedServers config")
 
         XCTAssertEqual(result.mode, .manual, "Legacy zcash-infra.com server should preserve manual mode")
         XCTAssertEqual(result.servers.count, 1, "Manual mode should preserve the legacy server")
@@ -83,19 +87,19 @@ class SelectedServersMigrationTests: XCTestCase {
             isCustom: false
         )
 
-        var capturedSelectedServers: UserPreferencesStorage.SelectedServersConfig?
+        let capturedSelectedServers = UncheckedSendableBox<UserPreferencesStorage.SelectedServersConfig?>(nil)
 
         withDependencies {
             $0.userStoredPreferences.server = { knownServer }
             $0.userStoredPreferences.selectedServers = { nil }
             $0.userStoredPreferences.setSelectedServers = { config in
-                capturedSelectedServers = config
+                capturedSelectedServers.value = config
             }
         } operation: {
             ZcashSDKEnvironment.initializeSelectedServersIfNeeded(for: .mainnet)
         }
 
-        let result = try XCTUnwrap(capturedSelectedServers, "Migration should have persisted a selectedServers config")
+        let result = try XCTUnwrap(capturedSelectedServers.value, "Migration should have persisted a selectedServers config")
 
         XCTAssertEqual(result.mode, .automatic, "Known server user should be set to automatic mode")
         XCTAssertTrue(result.servers.isEmpty, "Automatic mode should have empty servers array")
@@ -104,19 +108,19 @@ class SelectedServersMigrationTests: XCTestCase {
     // MARK: - New user → automatic mode
 
     func testNewUser_defaultsToAutomaticMode() throws {
-        var capturedSelectedServers: UserPreferencesStorage.SelectedServersConfig?
+        let capturedSelectedServers = UncheckedSendableBox<UserPreferencesStorage.SelectedServersConfig?>(nil)
 
         withDependencies {
             $0.userStoredPreferences.server = { nil }
             $0.userStoredPreferences.selectedServers = { nil }
             $0.userStoredPreferences.setSelectedServers = { config in
-                capturedSelectedServers = config
+                capturedSelectedServers.value = config
             }
         } operation: {
             ZcashSDKEnvironment.initializeSelectedServersIfNeeded(for: .mainnet)
         }
 
-        let result = try XCTUnwrap(capturedSelectedServers, "Migration should have persisted a selectedServers config")
+        let result = try XCTUnwrap(capturedSelectedServers.value, "Migration should have persisted a selectedServers config")
 
         XCTAssertEqual(result.mode, .automatic, "New user should default to automatic mode")
         XCTAssertTrue(result.servers.isEmpty, "Automatic mode should have empty servers array")
@@ -130,18 +134,18 @@ class SelectedServersMigrationTests: XCTestCase {
             servers: [.init(host: "zec.rocks", port: 443, isCustom: false)]
         )
 
-        var setSelectedServersCalled = false
+        let setSelectedServersCalled = UncheckedSendableBox(false)
 
         withDependencies {
             $0.userStoredPreferences.selectedServers = { existingConfig }
             $0.userStoredPreferences.setSelectedServers = { _ in
-                setSelectedServersCalled = true
+                setSelectedServersCalled.value = true
             }
         } operation: {
             ZcashSDKEnvironment.initializeSelectedServersIfNeeded(for: .mainnet)
         }
 
-        XCTAssertFalse(setSelectedServersCalled, "Should not overwrite existing selectedServers config")
+        XCTAssertFalse(setSelectedServersCalled.value, "Should not overwrite existing selectedServers config")
     }
 
     func testManualSelectedServerOverridesLegacyServerConfig() {
