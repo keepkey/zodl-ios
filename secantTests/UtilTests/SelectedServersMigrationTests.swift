@@ -340,6 +340,39 @@ class ServerSetupChangeDetectionTests: XCTestCase {
         XCTAssertTrue(store.state.hasChanges)
     }
 
+    func testOnAppearClearsUnsavedManualSelectionWhenStoredModeIsAutomatic() async {
+        let customLabel = String(localizable: .serverSetupCustom)
+        let store = TestStore(
+            initialState: ServerSetup.State(
+                connectionMode: .manual,
+                customServer: "unsaved.example.com:9067",
+                selectedServer: customLabel,
+                topKServers: [.default]
+            )
+        ) {
+            ServerSetup()
+        }
+
+        store.dependencies.zcashSDKEnvironment = .testValue
+        store.dependencies.userStoredPreferences.selectedServers = {
+            .init(mode: .automatic, servers: [])
+        }
+
+        await store.send(.onAppear) { state in
+            state.network = .testnet
+            state.activeSyncServer = ZcashSDKEnvironment.defaultEndpoint(for: .testnet).server()
+            state.connectionMode = .automatic
+            state.customServer = ""
+            state.initialCustomServer = ""
+            state.selectedServer = nil
+            state.initialSelectedServer = nil
+            state.initialConnectionMode = .automatic
+            state.servers = [.custom]
+        }
+
+        XCTAssertFalse(store.state.hasChanges)
+    }
+
     func testAutomaticEvaluationKeepsActiveSyncServerTruthful() async {
         let store = TestStore(
             initialState: ServerSetup.State(

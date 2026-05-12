@@ -10,7 +10,7 @@ import ComposableArchitecture
 @preconcurrency import ZcashLightClientKit
 
 extension LightWalletEndpoint: @retroactive Equatable {
-    static func == (lhs: LightWalletEndpoint, rhs: LightWalletEndpoint) -> Bool {
+    public static func == (lhs: LightWalletEndpoint, rhs: LightWalletEndpoint) -> Bool {
         lhs.host == rhs.host
         && lhs.port == rhs.port
         && lhs.streamingCallTimeoutInMillis == rhs.streamingCallTimeoutInMillis
@@ -123,16 +123,17 @@ struct ServerSetup {
                     state.servers = ZcashSDKEnvironment.servers(for: state.network)
                 }
 
-                // Load stored connection mode and selected server
-                if let config = userStoredPreferences.selectedServers() {
-                    state.connectionMode = config.mode
-                    if config.mode == .manual, let server = config.servers.first {
-                        if server.isCustom {
-                            state.customServer = server.serverString()
-                            state.selectedServer = String(localizable: .serverSetupCustom)
-                        } else {
-                            state.selectedServer = server.serverString()
-                        }
+                // Rehydrate from stored preferences so unsaved selections do not survive navigation.
+                let config = userStoredPreferences.selectedServers()
+                state.connectionMode = config?.mode ?? .automatic
+                state.customServer = ""
+                state.selectedServer = nil
+                if config?.mode == .manual, let server = config?.servers.first {
+                    if server.isCustom {
+                        state.customServer = server.serverString()
+                        state.selectedServer = String(localizable: .serverSetupCustom)
+                    } else {
+                        state.selectedServer = server.serverString()
                     }
                 }
 
