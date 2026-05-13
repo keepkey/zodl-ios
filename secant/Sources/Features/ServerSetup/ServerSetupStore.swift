@@ -274,8 +274,8 @@ struct ServerSetup {
                             )
                             // In automatic mode, selectedServers stores only the mode while the
                             // legacy server key caches the active benchmarked endpoint.
-                            try? userStoredPreferences.setSelectedServers(.init(mode: .automatic, servers: []))
-                            try? userStoredPreferences.setServer(serverConfig)
+                            try userStoredPreferences.setSelectedServers(.init(mode: .automatic, servers: []))
+                            try userStoredPreferences.setServer(serverConfig)
 
                             let bestServerString = "\(best.host):\(best.port)"
                             try await mainQueue.sleep(for: ServerEvaluationDefaults.saveCompletionDelay)
@@ -323,7 +323,7 @@ struct ServerSetup {
                             }
 
                             // Cache the active endpoint for automatic mode and legacy callers.
-                            try? userStoredPreferences.setServer(serverConfig)
+                            try userStoredPreferences.setServer(serverConfig)
 
                             let serverStr = "\(endpoint.host):\(endpoint.port)"
                             try await mainQueue.sleep(for: ServerEvaluationDefaults.saveCompletionDelay)

@@ -474,7 +474,11 @@ struct Root {
                                     let revert = manualServer.endpoint(
                                         streamingCallTimeoutInMillis: ZcashSDKEnvironment.ZcashSDKConstants.streamingCallTimeoutInMillis
                                     )
-                                    try? await sdkSynchronizer.switchToEndpoint(revert)
+                                    do {
+                                        try await sdkSynchronizer.switchToEndpoint(revert)
+                                    } catch {
+                                        LoggerProxy.error("[Benchmark] Failed to restore manual endpoint: \(error)")
+                                    }
                                 }
                                 return
                             }
@@ -492,7 +496,7 @@ struct Root {
                             // Only the legacy `server` key is updated here — `selectedServers.servers`
                             // stays empty in automatic mode by design. The active sync server is always
                             // derived from the legacy key; `selectedServers` only stores the mode.
-                            try? userStoredPreferences.setServer(serverConfig)
+                            try userStoredPreferences.setServer(serverConfig)
                         } catch is CancellationError {
                             return
                         } catch {

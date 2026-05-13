@@ -585,6 +585,69 @@ class ServerSetupChangeDetectionTests: XCTestCase {
         XCTAssertEqual(capturedServer.value?.port, activeEndpoint.port)
     }
 
+    func testAutomaticSaveSurfacesPersistenceFailure() async {
+        let customLabel = String(localizable: .serverSetupCustom)
+        let manualServer = UserPreferencesStorage.ServerConfig(
+            host: "manual.example.com",
+            port: 9067,
+            isCustom: true
+        )
+        let automaticEndpoint = ZcashSDKEnvironment.defaultEndpoint(for: .testnet)
+        let persistenceError = UserPreferencesStorage.UserPreferencesStorageError.selectedServersConfig.toZcashError()
+        let store = TestStore(
+            initialState: ServerSetup.State(
+                connectionMode: .manual,
+                topKServers: [.default]
+            )
+        ) {
+            ServerSetup()
+        }
+
+        store.dependencies.zcashSDKEnvironment = .testValue
+        store.dependencies.mainQueue = .immediate
+        store.dependencies.userStoredPreferences.selectedServers = {
+            .init(mode: .manual, servers: [manualServer])
+        }
+        store.dependencies.userStoredPreferences.setSelectedServers = { _ in
+            throw UserPreferencesStorage.UserPreferencesStorageError.selectedServersConfig
+        }
+        store.dependencies.sdkSynchronizer = .mocked(
+            switchToEndpoint: { _ in }
+        )
+
+        await store.send(.onAppear) { state in
+            state.network = .testnet
+            state.activeSyncServer = ZcashSDKEnvironment.defaultEndpoint(for: .testnet).server()
+            state.customServer = manualServer.serverString()
+            state.initialCustomServer = manualServer.serverString()
+            state.connectionMode = .manual
+            state.initialConnectionMode = .manual
+            state.selectedServer = customLabel
+            state.initialSelectedServer = customLabel
+            state.servers = [.custom]
+        }
+
+        await store.send(.connectionModeChanged(.automatic)) { state in
+            state.connectionMode = .automatic
+        }
+
+        await store.send(.evaluatedServers(0, [automaticEndpoint])) { state in
+            state.isEvaluatingServers = false
+            state.topKServers = [.default]
+            state.servers = [.custom]
+            state.recommendedSyncServer = automaticEndpoint.server()
+        }
+
+        await store.send(.setServerTapped) { state in
+            state.isUpdatingServer = true
+        }
+
+        await store.receive(.switchFailed(persistenceError)) { state in
+            state.isUpdatingServer = false
+            state.alert = AlertState.endpointSwitchFailed(persistenceError)
+        }
+    }
+
     func testAutomaticSaveClearsStaleManualSelectionBeforeManualPreselect() async {
         let customLabel = String(localizable: .serverSetupCustom)
         let manualServer = UserPreferencesStorage.ServerConfig(
