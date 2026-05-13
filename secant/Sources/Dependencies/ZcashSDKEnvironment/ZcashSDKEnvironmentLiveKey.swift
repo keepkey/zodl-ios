@@ -100,20 +100,22 @@ extension ZcashSDKEnvironment {
     
     /// On first launch (no selected servers config), initialize based on existing server preference:
     /// - Custom server users: manual mode with their custom server (privacy)
-    /// - Known server users / new users: automatic mode (sends to all servers)
+    /// - Non-default known server users: manual mode with their selected server
+    /// - Unknown non-default server users: manual mode, normalized as custom
+    /// - Default known server users / new users: automatic mode (sends to all servers)
     static func initializeSelectedServersIfNeeded(for network: NetworkType) {
         @Dependency(\.userStoredPreferences) var userStoredPreferences
 
         guard userStoredPreferences.selectedServers() == nil else { return }
 
         if let existing = userStoredPreferences.server() {
-            let normalizedServer = normalizedStoredServerConfig(existing)
+            let normalizedServer = migrationServerConfig(existing, network: network)
 
-            if normalizedServer.isCustom {
+            if shouldPreserveAsManualSelection(normalizedServer, network: network) {
                 do {
                     try userStoredPreferences.setSelectedServers(.init(mode: .manual, servers: [normalizedServer]))
                 } catch {
-                    LoggerProxy.error("[Migration] Failed to persist custom server selection: \(error)")
+                    LoggerProxy.error("[Migration] Failed to persist manual server selection: \(error)")
                 }
                 return
             }
@@ -139,6 +141,47 @@ extension ZcashSDKEnvironment {
         }
 
         return serverConfig
+    }
+
+    private static func migrationServerConfig(
+        _ serverConfig: UserPreferencesStorage.ServerConfig,
+        network: NetworkType
+    ) -> UserPreferencesStorage.ServerConfig {
+        let normalizedServer = normalizedStoredServerConfig(serverConfig)
+        guard !normalizedServer.isCustom else {
+            return normalizedServer
+        }
+
+        let defaultEndpoint = defaultEndpoint(for: network)
+        if normalizedServer.host == defaultEndpoint.host && normalizedServer.port == defaultEndpoint.port {
+            return normalizedServer
+        }
+
+        if isKnownEndpoint(host: normalizedServer.host, port: normalizedServer.port, network: network) {
+            return normalizedServer
+        }
+
+        return UserPreferencesStorage.ServerConfig(
+            host: normalizedServer.host,
+            port: normalizedServer.port,
+            isCustom: true
+        )
+    }
+
+    private static func shouldPreserveAsManualSelection(
+        _ serverConfig: UserPreferencesStorage.ServerConfig,
+        network: NetworkType
+    ) -> Bool {
+        if serverConfig.isCustom {
+            return true
+        }
+
+        let defaultEndpoint = defaultEndpoint(for: network)
+        if serverConfig.host == defaultEndpoint.host && serverConfig.port == defaultEndpoint.port {
+            return false
+        }
+
+        return true
     }
 
     static func storedServerConfig() -> UserPreferencesStorage.ServerConfig? {

@@ -78,9 +78,37 @@ class SelectedServersMigrationTests: XCTestCase {
         XCTAssertTrue(result.servers.first?.isCustom == true, "Legacy infra server should normalize to custom")
     }
 
-    // MARK: - Known server user → automatic mode
+    // MARK: - Default server user → automatic mode
 
-    func testKnownServerUser_migratesToAutomaticMode() throws {
+    func testDefaultServerUser_migratesToAutomaticMode() throws {
+        let defaultEndpoint = ZcashSDKEnvironment.defaultEndpoint(for: .mainnet)
+        let defaultServer = UserPreferencesStorage.ServerConfig(
+            host: defaultEndpoint.host,
+            port: defaultEndpoint.port,
+            isCustom: false
+        )
+
+        let capturedSelectedServers = UncheckedSendableBox<UserPreferencesStorage.SelectedServersConfig?>(nil)
+
+        withDependencies {
+            $0.userStoredPreferences.server = { defaultServer }
+            $0.userStoredPreferences.selectedServers = { nil }
+            $0.userStoredPreferences.setSelectedServers = { config in
+                capturedSelectedServers.value = config
+            }
+        } operation: {
+            ZcashSDKEnvironment.initializeSelectedServersIfNeeded(for: .mainnet)
+        }
+
+        let result = try XCTUnwrap(capturedSelectedServers.value, "Migration should have persisted a selectedServers config")
+
+        XCTAssertEqual(result.mode, .automatic, "Default server user should be set to automatic mode")
+        XCTAssertTrue(result.servers.isEmpty, "Automatic mode should have empty servers array")
+    }
+
+    // MARK: - Non-default known server user → manual mode
+
+    func testNonDefaultKnownServerUser_migratesToManualMode() throws {
         let knownServer = UserPreferencesStorage.ServerConfig(
             host: "zec.rocks",
             port: 443,
@@ -101,8 +129,39 @@ class SelectedServersMigrationTests: XCTestCase {
 
         let result = try XCTUnwrap(capturedSelectedServers.value, "Migration should have persisted a selectedServers config")
 
-        XCTAssertEqual(result.mode, .automatic, "Known server user should be set to automatic mode")
-        XCTAssertTrue(result.servers.isEmpty, "Automatic mode should have empty servers array")
+        XCTAssertEqual(result.mode, .manual, "Non-default known server user should stay in manual mode")
+        XCTAssertEqual(result.servers.count, 1, "Manual mode should preserve the selected known server")
+        XCTAssertEqual(result.servers.first?.host, knownServer.host)
+        XCTAssertEqual(result.servers.first?.port, knownServer.port)
+        XCTAssertTrue(result.servers.first?.isCustom == false, "Known server should not be marked as custom")
+    }
+
+    func testUnknownNonCustomServerUser_migratesToManualCustomMode() throws {
+        let unknownServer = UserPreferencesStorage.ServerConfig(
+            host: "previously-known.example.com",
+            port: 443,
+            isCustom: false
+        )
+
+        let capturedSelectedServers = UncheckedSendableBox<UserPreferencesStorage.SelectedServersConfig?>(nil)
+
+        withDependencies {
+            $0.userStoredPreferences.server = { unknownServer }
+            $0.userStoredPreferences.selectedServers = { nil }
+            $0.userStoredPreferences.setSelectedServers = { config in
+                capturedSelectedServers.value = config
+            }
+        } operation: {
+            ZcashSDKEnvironment.initializeSelectedServersIfNeeded(for: .mainnet)
+        }
+
+        let result = try XCTUnwrap(capturedSelectedServers.value, "Migration should have persisted a selectedServers config")
+
+        XCTAssertEqual(result.mode, .manual, "Unknown non-default server should preserve manual mode")
+        XCTAssertEqual(result.servers.count, 1, "Manual mode should preserve the selected server")
+        XCTAssertEqual(result.servers.first?.host, unknownServer.host)
+        XCTAssertEqual(result.servers.first?.port, unknownServer.port)
+        XCTAssertTrue(result.servers.first?.isCustom == true, "Unknown server should normalize to custom")
     }
 
     // MARK: - New user → automatic mode
