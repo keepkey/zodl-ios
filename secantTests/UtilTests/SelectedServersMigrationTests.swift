@@ -585,6 +585,98 @@ class ServerSetupChangeDetectionTests: XCTestCase {
         XCTAssertEqual(capturedServer.value?.port, activeEndpoint.port)
     }
 
+    func testAutomaticSaveClearsStaleManualSelectionBeforeManualPreselect() async {
+        let customLabel = String(localizable: .serverSetupCustom)
+        let manualServer = UserPreferencesStorage.ServerConfig(
+            host: "manual.example.com",
+            port: 9067,
+            isCustom: true
+        )
+        let automaticEndpoint = ZcashSDKEnvironment.defaultEndpoint(for: .testnet)
+        let automaticServer = automaticEndpoint.serverConfig()
+        let activeServer = UncheckedSendableBox(manualServer)
+        let storedSelectedServers = UncheckedSendableBox<UserPreferencesStorage.SelectedServersConfig?>(
+            .init(mode: .manual, servers: [manualServer])
+        )
+        let storedServer = UncheckedSendableBox<UserPreferencesStorage.ServerConfig?>(manualServer)
+        let store = TestStore(
+            initialState: ServerSetup.State(
+                connectionMode: .manual,
+                topKServers: [.default]
+            )
+        ) {
+            ServerSetup()
+        }
+
+        store.dependencies.zcashSDKEnvironment = testEnvironment {
+            activeServer.value
+        }
+        store.dependencies.mainQueue = .immediate
+        store.dependencies.userStoredPreferences.server = {
+            storedServer.value
+        }
+        store.dependencies.userStoredPreferences.selectedServers = {
+            storedSelectedServers.value
+        }
+        store.dependencies.userStoredPreferences.setServer = { config in
+            storedServer.value = config
+            activeServer.value = config
+        }
+        store.dependencies.userStoredPreferences.setSelectedServers = { config in
+            storedSelectedServers.value = config
+        }
+        store.dependencies.sdkSynchronizer = .mocked(
+            switchToEndpoint: { endpoint in
+                activeServer.value = endpoint.serverConfig()
+            }
+        )
+
+        await store.send(.onAppear) { state in
+            state.network = .testnet
+            state.activeSyncServer = manualServer.serverString()
+            state.customServer = manualServer.serverString()
+            state.initialCustomServer = manualServer.serverString()
+            state.connectionMode = .manual
+            state.initialConnectionMode = .manual
+            state.selectedServer = customLabel
+            state.initialSelectedServer = customLabel
+            state.servers = [.custom]
+        }
+
+        await store.send(.connectionModeChanged(.automatic)) { state in
+            state.connectionMode = .automatic
+        }
+
+        await store.send(.evaluatedServers(0, [automaticEndpoint])) { state in
+            state.isEvaluatingServers = false
+            state.topKServers = [.default]
+            state.servers = [.custom]
+            state.recommendedSyncServer = automaticServer.serverString()
+        }
+
+        await store.send(.setServerTapped) { state in
+            state.isUpdatingServer = true
+        }
+
+        await store.receive(.switchSucceeded(automaticServer.serverString())) { state in
+            state.isUpdatingServer = false
+            state.customServer = ""
+            state.initialConnectionMode = .automatic
+            state.initialCustomServer = ""
+            state.selectedServer = nil
+            state.initialSelectedServer = nil
+            state.activeSyncServer = automaticServer.serverString()
+        }
+
+        await store.send(.connectionModeChanged(.manual)) { state in
+            state.connectionMode = .manual
+            state.activeSyncServer = automaticServer.serverString()
+            state.selectedServer = automaticServer.serverString()
+        }
+
+        XCTAssertTrue(store.state.hasChanges)
+    }
+
     func testOnAppearClearsUnsavedManualSelectionWhenStoredModeIsAutomatic() async {
         let customLabel = String(localizable: .serverSetupCustom)
         let store = TestStore(

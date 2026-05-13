@@ -346,6 +346,10 @@ struct ServerSetup {
 
             case .switchSucceeded(let bestServer):
                 state.isUpdatingServer = false
+                if state.connectionMode == .automatic {
+                    state.selectedServer = nil
+                    state.customServer = ""
+                }
                 state.initialConnectionMode = state.connectionMode
                 state.initialSelectedServer = state.selectedServer
                 state.initialCustomServer = state.customServer
