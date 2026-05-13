@@ -416,6 +416,9 @@ class ServerSetupChangeDetectionTests: XCTestCase {
         ) {
             ServerSetup()
         }
+        store.dependencies.zcashSDKEnvironment = testEnvironment {
+            activeEndpoint.serverConfig()
+        }
 
         await store.send(.binding(.set(\.activeSyncServer, activeEndpoint.server()))) { state in
             state.activeSyncServer = activeEndpoint.server()
@@ -431,7 +434,46 @@ class ServerSetupChangeDetectionTests: XCTestCase {
 
     func testManualModePreselectsUnknownActiveEndpointAsCustom() async {
         let customLabel = String(localizable: .serverSetupCustom)
-        let activeEndpoint = "custom.example.com:9067"
+        let activeEndpoint = LightWalletEndpoint(
+            address: "custom.example.com",
+            port: 9067,
+            secure: true,
+            streamingCallTimeoutInMillis: ZcashSDKEnvironment.ZcashSDKConstants.streamingCallTimeoutInMillis
+        )
+        let store = TestStore(
+            initialState: ServerSetup.State(
+                connectionMode: .automatic,
+                topKServers: [.default]
+            )
+        ) {
+            ServerSetup()
+        }
+        store.dependencies.zcashSDKEnvironment = testEnvironment {
+            activeEndpoint.serverConfig(isCustom: true)
+        }
+
+        await store.send(.binding(.set(\.activeSyncServer, activeEndpoint.server()))) { state in
+            state.activeSyncServer = activeEndpoint.server()
+        }
+
+        await store.send(.connectionModeChanged(.manual)) { state in
+            state.connectionMode = .manual
+            state.selectedServer = customLabel
+            state.customServer = activeEndpoint.server()
+        }
+
+        XCTAssertTrue(store.state.hasChanges)
+    }
+
+    func testManualModeRefreshesActiveEndpointBeforePreselecting() async {
+        let initialServer = ZcashSDKEnvironment.defaultEndpoint(for: .testnet).serverConfig()
+        let latestServer = UserPreferencesStorage.ServerConfig(
+            host: "custom.example.com",
+            port: 9067,
+            isCustom: true
+        )
+        let activeServer = UncheckedSendableBox(initialServer)
+        let customLabel = String(localizable: .serverSetupCustom)
         let store = TestStore(
             initialState: ServerSetup.State(
                 connectionMode: .automatic,
@@ -441,14 +483,28 @@ class ServerSetupChangeDetectionTests: XCTestCase {
             ServerSetup()
         }
 
-        await store.send(.binding(.set(\.activeSyncServer, activeEndpoint))) { state in
-            state.activeSyncServer = activeEndpoint
+        store.dependencies.zcashSDKEnvironment = testEnvironment {
+            activeServer.value
         }
+        store.dependencies.userStoredPreferences.selectedServers = {
+            .init(mode: .automatic, servers: [])
+        }
+
+        await store.send(.onAppear) { state in
+            state.network = .testnet
+            state.activeSyncServer = initialServer.serverString()
+            state.connectionMode = .automatic
+            state.initialConnectionMode = .automatic
+            state.servers = [.custom]
+        }
+
+        activeServer.value = latestServer
 
         await store.send(.connectionModeChanged(.manual)) { state in
             state.connectionMode = .manual
+            state.activeSyncServer = latestServer.serverString()
             state.selectedServer = customLabel
-            state.customServer = activeEndpoint
+            state.customServer = latestServer.serverString()
         }
 
         XCTAssertTrue(store.state.hasChanges)
@@ -629,5 +685,29 @@ class ServerSetupChangeDetectionTests: XCTestCase {
         XCTAssertTrue(store.state.isEvaluatingServers, "Older evaluation should not finish the latest request")
         XCTAssertTrue(store.state.topKServers.isEmpty, "Stale evaluation results should be ignored")
         XCTAssertNil(store.state.recommendedSyncServer, "Ignored stale results should not update recommendations")
+    }
+
+    private func testEnvironment(
+        serverConfig: @escaping @Sendable () -> UserPreferencesStorage.ServerConfig
+    ) -> ZcashSDKEnvironment {
+        ZcashSDKEnvironment(
+            latestCheckpoint: 0,
+            endpoint: {
+                serverConfig().endpoint(
+                    streamingCallTimeoutInMillis: ZcashSDKEnvironment.ZcashSDKConstants.streamingCallTimeoutInMillis
+                )
+            },
+            exchangeRateIPRateLimit: 120,
+            exchangeRateStaleLimit: 15 * 60,
+            memoCharLimit: MemoBytes.capacity,
+            mnemonicWordsMaxCount: ZcashSDKEnvironment.ZcashSDKConstants.mnemonicWordsMaxCount,
+            network: ZcashNetworkBuilder.network(for: .testnet),
+            requiredTransactionConfirmations: ZcashSDKEnvironment.ZcashSDKConstants.requiredTransactionConfirmations,
+            sdkVersion: "test",
+            serverConfig: serverConfig,
+            servers: ZcashSDKEnvironment.servers(for: .testnet),
+            shieldingThreshold: Zatoshi(100_000),
+            tokenName: "TAZ"
+        )
     }
 }

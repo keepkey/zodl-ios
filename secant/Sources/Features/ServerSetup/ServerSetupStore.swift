@@ -169,6 +169,10 @@ struct ServerSetup {
                     state.customServer = state.initialCustomServer
                 } else if mode == .manual {
                     if previousMode != .manual && state.selectedServer == nil {
+                        if !state.activeSyncServer.isEmpty {
+                            let syncConfig = zcashSDKEnvironment.serverConfig()
+                            state.activeSyncServer = syncConfig.serverString()
+                        }
                         state.selectActiveSyncServerForManualMode()
                     }
                     if state.topKServers.isEmpty {
