@@ -494,6 +494,9 @@ extension SDKSynchronizerClient {
                 let status = "Transaction \(index) created but raw bytes unavailable"
                 statuses.append(status)
                 LoggerProxy.error("\(logPrefix) \(status).")
+                if acceptedCount > 0 {
+                    statuses.append(contentsOf: notAttemptedStatuses(after: index, transactionCount: transactions.count))
+                }
                 return acceptedCount == 0
                     ? .failure(txIds: txIds, code: -1, description: status)
                     : .partial(txIds: txIds, statuses: statuses)
@@ -528,6 +531,9 @@ extension SDKSynchronizerClient {
                         "\(logPrefix) Transaction \(index) rejected by \(submitFailure.server): " +
                         "\(submitFailure.code) \(submitFailure.description)."
                     )
+                    if acceptedCount > 0 {
+                        statuses.append(contentsOf: notAttemptedStatuses(after: index, transactionCount: transactions.count))
+                    }
                     return acceptedCount == 0
                         ? .failure(txIds: txIds, code: submitFailure.code, description: submitFailure.description)
                         : .partial(txIds: txIds, statuses: statuses)
@@ -537,6 +543,7 @@ extension SDKSynchronizerClient {
                 statuses.append(status)
                 LoggerProxy.error("\(logPrefix) Transaction \(index) rejected by all \(endpoints.count) server(s).")
                 if acceptedCount > 0 {
+                    statuses.append(contentsOf: notAttemptedStatuses(after: index, transactionCount: transactions.count))
                     return .partial(txIds: txIds, statuses: statuses)
                 }
 
@@ -553,6 +560,10 @@ extension SDKSynchronizerClient {
         return acceptedCount == transactions.count
             ? .success(txIds: txIds)
             : .partial(txIds: txIds, statuses: statuses)
+    }
+
+    private static func notAttemptedStatuses(after index: Int, transactionCount: Int) -> [String] {
+        Array(repeating: "notAttempted", count: max(transactionCount - index - 1, 0))
     }
 
     static func selectedSubmissionEndpoints(
