@@ -455,6 +455,12 @@ struct Root {
                     let currentEndpoint = zcashSDKEnvironment.endpoint()
                     if best.host != currentEndpoint.host || best.port != currentEndpoint.port {
                         do {
+                            try Task.checkCancellation()
+                            // Re-check immediately before switching. A manual save cancels this
+                            // effect, but this also covers saves that complete between benchmark
+                            // selection and the endpoint switch.
+                            guard userStoredPreferences.selectedServers()?.mode == .automatic else { return }
+
                             try await sdkSynchronizer.switchToEndpoint(best)
 
                             // Re-check after async switch — if user saved manual mode while
@@ -487,6 +493,8 @@ struct Root {
                             // stays empty in automatic mode by design. The active sync server is always
                             // derived from the legacy key; `selectedServers` only stores the mode.
                             try? userStoredPreferences.setServer(serverConfig)
+                        } catch is CancellationError {
+                            return
                         } catch {
                             LoggerProxy.error("[Benchmark] Failed to switch endpoint: \(error)")
                         }
