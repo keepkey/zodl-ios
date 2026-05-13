@@ -368,6 +368,7 @@ class ServerSetupChangeDetectionTests: XCTestCase {
     }
 
     func testConnectionModeChangeMarksStateChanged() async {
+        let activeEndpoint = ZcashSDKEnvironment.defaultEndpoint(for: .testnet)
         let store = TestStore(
             initialState: ServerSetup.State(
                 connectionMode: .automatic,
@@ -394,9 +395,138 @@ class ServerSetupChangeDetectionTests: XCTestCase {
 
         await store.send(.connectionModeChanged(.manual)) { state in
             state.connectionMode = .manual
+            state.selectedServer = activeEndpoint.server()
         }
 
         XCTAssertTrue(store.state.hasChanges)
+    }
+
+    func testManualModePreselectsKnownActiveEndpoint() async {
+        let activeEndpoint = LightWalletEndpoint(
+            address: "zec.rocks",
+            port: 443,
+            secure: true,
+            streamingCallTimeoutInMillis: ZcashSDKEnvironment.ZcashSDKConstants.streamingCallTimeoutInMillis
+        )
+        let store = TestStore(
+            initialState: ServerSetup.State(
+                connectionMode: .automatic,
+                topKServers: [.default]
+            )
+        ) {
+            ServerSetup()
+        }
+
+        await store.send(.binding(.set(\.activeSyncServer, activeEndpoint.server()))) { state in
+            state.activeSyncServer = activeEndpoint.server()
+        }
+
+        await store.send(.connectionModeChanged(.manual)) { state in
+            state.connectionMode = .manual
+            state.selectedServer = activeEndpoint.server()
+        }
+
+        XCTAssertTrue(store.state.hasChanges)
+    }
+
+    func testManualModePreselectsUnknownActiveEndpointAsCustom() async {
+        let customLabel = String(localizable: .serverSetupCustom)
+        let activeEndpoint = "custom.example.com:9067"
+        let store = TestStore(
+            initialState: ServerSetup.State(
+                connectionMode: .automatic,
+                topKServers: [.default]
+            )
+        ) {
+            ServerSetup()
+        }
+
+        await store.send(.binding(.set(\.activeSyncServer, activeEndpoint))) { state in
+            state.activeSyncServer = activeEndpoint
+        }
+
+        await store.send(.connectionModeChanged(.manual)) { state in
+            state.connectionMode = .manual
+            state.selectedServer = customLabel
+            state.customServer = activeEndpoint
+        }
+
+        XCTAssertTrue(store.state.hasChanges)
+    }
+
+    func testManualModeWithMissingActiveEndpointRequiresSelection() async {
+        let store = TestStore(
+            initialState: ServerSetup.State(
+                connectionMode: .automatic,
+                topKServers: [.default]
+            )
+        ) {
+            ServerSetup()
+        }
+
+        await store.send(.connectionModeChanged(.manual)) { state in
+            state.connectionMode = .manual
+        }
+
+        XCTAssertNil(store.state.selectedServer)
+        XCTAssertTrue(store.state.connectionMode == .manual && store.state.selectedServer == nil)
+    }
+
+    func testSavingManualModeAfterAutomaticPinsActiveEndpoint() async throws {
+        let activeEndpoint = ZcashSDKEnvironment.defaultEndpoint(for: .testnet)
+        let capturedSelectedServers = UncheckedSendableBox<UserPreferencesStorage.SelectedServersConfig?>(nil)
+        let capturedServer = UncheckedSendableBox<UserPreferencesStorage.ServerConfig?>(nil)
+        let store = TestStore(
+            initialState: ServerSetup.State(
+                connectionMode: .automatic,
+                topKServers: [.default]
+            )
+        ) {
+            ServerSetup()
+        }
+
+        store.dependencies.zcashSDKEnvironment = .testValue
+        store.dependencies.mainQueue = .immediate
+        store.dependencies.userStoredPreferences.selectedServers = {
+            .init(mode: .automatic, servers: [])
+        }
+        store.dependencies.userStoredPreferences.setSelectedServers = { config in
+            capturedSelectedServers.value = config
+        }
+        store.dependencies.userStoredPreferences.setServer = { config in
+            capturedServer.value = config
+        }
+
+        await store.send(.onAppear) { state in
+            state.network = .testnet
+            state.activeSyncServer = activeEndpoint.server()
+            state.connectionMode = .automatic
+            state.initialConnectionMode = .automatic
+            state.servers = [.custom]
+        }
+
+        await store.send(.connectionModeChanged(.manual)) { state in
+            state.connectionMode = .manual
+            state.selectedServer = activeEndpoint.server()
+        }
+
+        await store.send(.setServerTapped) { state in
+            state.isUpdatingServer = true
+        }
+
+        await store.receive(.switchSucceeded(activeEndpoint.server())) { state in
+            state.isUpdatingServer = false
+            state.initialConnectionMode = .manual
+            state.initialSelectedServer = activeEndpoint.server()
+            state.activeSyncServer = activeEndpoint.server()
+        }
+
+        let selectedServers = try XCTUnwrap(capturedSelectedServers.value)
+        XCTAssertEqual(selectedServers.mode, .manual)
+        XCTAssertEqual(selectedServers.servers.first?.host, activeEndpoint.host)
+        XCTAssertEqual(selectedServers.servers.first?.port, activeEndpoint.port)
+        XCTAssertEqual(capturedServer.value?.host, activeEndpoint.host)
+        XCTAssertEqual(capturedServer.value?.port, activeEndpoint.port)
     }
 
     func testOnAppearClearsUnsavedManualSelectionWhenStoredModeIsAutomatic() async {

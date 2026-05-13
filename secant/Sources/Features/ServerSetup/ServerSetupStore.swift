@@ -162,12 +162,18 @@ struct ServerSetup {
                 return .none
 
             case .connectionModeChanged(let mode):
+                let previousMode = state.connectionMode
                 state.connectionMode = mode
                 if mode == .automatic {
                     state.selectedServer = state.initialSelectedServer
                     state.customServer = state.initialCustomServer
-                } else if mode == .manual && state.topKServers.isEmpty {
-                    return .send(.evaluateServers)
+                } else if mode == .manual {
+                    if previousMode != .manual && state.selectedServer == nil {
+                        state.selectActiveSyncServerForManualMode()
+                    }
+                    if state.topKServers.isEmpty {
+                        return .send(.evaluateServers)
+                    }
                 }
                 return .none
 
@@ -342,6 +348,28 @@ struct ServerSetup {
                 state.activeSyncServer = bestServer
                 return .none
             }
+        }
+    }
+}
+
+private extension ServerSetup.State {
+    mutating func selectActiveSyncServerForManualMode() {
+        guard let endpoint = UserPreferencesStorage.ServerConfig.endpoint(
+            for: activeSyncServer,
+            streamingCallTimeoutInMillis: ZcashSDKEnvironment.ZcashSDKConstants.streamingCallTimeoutInMillis
+        ) else {
+            selectedServer = nil
+            customServer = ""
+            return
+        }
+
+        let endpointString = endpoint.server()
+        if ZcashSDKEnvironment.isKnownEndpoint(host: endpoint.host, port: endpoint.port, network: network) {
+            selectedServer = endpointString
+            customServer = ""
+        } else {
+            selectedServer = String(localizable: .serverSetupCustom)
+            customServer = endpointString
         }
     }
 }
