@@ -200,6 +200,7 @@ struct Root {
         case torSetup(TorSetup.Action)
         case backToHomeFromServerSwitchTapped
         case benchmarkSyncEndpoint
+        case benchmarkSyncEndpointIfForeground
 
         // Transactions
         case observeTransactions
@@ -505,6 +506,13 @@ struct Root {
                     }
                 }
                 .cancellable(id: state.serverBenchmarkCancelId, cancelInFlight: true)
+
+            case .benchmarkSyncEndpointIfForeground:
+                guard state.appStartState == .willEnterForeground,
+                      state.bgTask == nil else {
+                    return .none
+                }
+                return .send(.benchmarkSyncEndpoint)
 
             default: return .none
             }

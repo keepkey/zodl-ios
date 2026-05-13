@@ -80,7 +80,8 @@ extension Root {
                 state.isLockedInKeychainUnavailableState = false
                 return .merge(
                     .cancel(id: state.CancelStateId),
-                    .cancel(id: state.CancelTransactionsStateId)
+                    .cancel(id: state.CancelTransactionsStateId),
+                    .cancel(id: state.serverBenchmarkCancelId)
                 )
 
             case .initialization(.appDelegate(.backgroundTask(let task))):
@@ -189,15 +190,20 @@ extension Root {
                 guard sdkSynchronizer.latestState().syncStatus.isPrepared else {
                     return .none
                 }
-                return .run { [state] send in
+                let hasBackgroundTask = state.bgTask != nil
+
+                return .run { send in
                     do {
                         try await sdkSynchronizer.start(true)
-                        if state.bgTask != nil {
+                        if hasBackgroundTask {
                             LoggerProxy.event("BGTask synchronizer.start() PASSED")
                         }
                         await send(.initialization(.registerForSynchronizersUpdate))
+                        if !hasBackgroundTask {
+                            await send(.benchmarkSyncEndpointIfForeground)
+                        }
                     } catch {
-                        if state.bgTask != nil {
+                        if hasBackgroundTask {
                             LoggerProxy.event("BGTask synchronizer.start() failed \(error.toZcashError())")
                         }
                         await send(.initialization(.synchronizerStartFailed(error.toZcashError())))

@@ -11,6 +11,40 @@ import ComposableArchitecture
 @testable import secant_testnet
 
 class AppInitializationTests: XCTestCase {
+    @MainActor func testForegroundBenchmarkGateRunsBenchmark() async throws {
+        var appState = Root.State.initial
+        appState.appStartState = .willEnterForeground
+
+        let store = TestStore(
+            initialState: appState
+        ) {
+            Root()
+        }
+
+        store.dependencies.userStoredPreferences.selectedServers = { nil }
+
+        await store.send(.benchmarkSyncEndpointIfForeground)
+
+        await store.receive(.benchmarkSyncEndpoint)
+
+        await store.finish()
+    }
+
+    @MainActor func testBackgroundedForegroundRestartDoesNotBenchmarkEndpoint() async throws {
+        var appState = Root.State.initial
+        appState.appStartState = .didEnterBackground
+
+        let store = TestStore(
+            initialState: appState
+        ) {
+            Root()
+        }
+
+        await store.send(.benchmarkSyncEndpointIfForeground)
+
+        await store.finish()
+    }
+
     /// This integration test starts with finishing the app launch and triggering bunch of initialization procedures.
     @MainActor func testDidFinishLaunching_to_InitializedWallet() async throws {
         var defaultRawFlags = WalletConfig.initial.flags
