@@ -541,8 +541,9 @@ struct Root {
                     return
                 }
 
-                try Task.checkCancellation()
-
+                // Once the SDK switch succeeds, finish the legacy server write even if
+                // the effect has since been canceled. Otherwise live and persisted
+                // Automatic endpoints can diverge.
                 let isCustom = !ZcashSDKEnvironment.isKnownEndpoint(
                     host: endpoint.host,
                     port: endpoint.port,
