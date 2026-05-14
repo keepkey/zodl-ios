@@ -93,6 +93,7 @@ struct ServerSetup {
 
     enum Action: Equatable, BindableAction {
         case alert(PresentationAction<Action>)
+        case automaticEndpointUpdated(String)
         case binding(BindingAction<State>)
         case connectionModeChanged(UserPreferencesStorage.ConnectionMode)
         case evaluatedServers(Int, [LightWalletEndpoint])
@@ -156,6 +157,12 @@ struct ServerSetup {
                 return .none
 
             case .alert:
+                return .none
+
+            case .automaticEndpointUpdated(let server):
+                if state.connectionMode == .automatic {
+                    state.activeSyncServer = server
+                }
                 return .none
 
             case .binding:

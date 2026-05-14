@@ -10,6 +10,14 @@ import ComposableArchitecture
 @preconcurrency import ZcashLightClientKit
 @testable import secant_testnet
 
+private final class UncheckedSendableBox<Value>: @unchecked Sendable {
+    var value: Value
+
+    init(_ value: Value) {
+        self.value = value
+    }
+}
+
 class AppInitializationTests: XCTestCase {
     @MainActor func testForegroundBenchmarkGateRunsBenchmark() async throws {
         var appState = Root.State.initial
@@ -41,6 +49,117 @@ class AppInitializationTests: XCTestCase {
         }
 
         await store.send(.benchmarkSyncEndpointIfForeground)
+
+        await store.finish()
+    }
+
+    @MainActor func testCompletedAutomaticBenchmarkAppliesLatestEndpoint() async throws {
+        var appState = Root.State.initial
+        appState.appStartState = .willEnterForeground
+
+        let bestEndpoint = LightWalletEndpoint(
+            address: "faster.example.com",
+            port: 443,
+            secure: true,
+            streamingCallTimeoutInMillis: ZcashSDKEnvironment.ZcashSDKConstants.streamingCallTimeoutInMillis
+        )
+        let storedServer = UncheckedSendableBox<UserPreferencesStorage.ServerConfig?>(nil)
+        let switchedEndpoints = UncheckedSendableBox<[String]>([])
+
+        let store = TestStore(
+            initialState: appState
+        ) {
+            Root()
+        }
+
+        store.dependencies.zcashSDKEnvironment = .testValue
+        store.dependencies.userStoredPreferences.selectedServers = {
+            .init(mode: .automatic, servers: [])
+        }
+        store.dependencies.userStoredPreferences.setServer = { config in
+            storedServer.value = config
+        }
+        store.dependencies.sdkSynchronizer = .mocked(
+            switchToEndpoint: { endpoint in
+                switchedEndpoints.value.append(endpoint.server())
+            }
+        )
+
+        await store.send(.automaticSyncEndpointEvaluated(bestEndpoint))
+
+        await store.receive(.serverSetup(.automaticEndpointUpdated(bestEndpoint.server()))) { state in
+            state.serverSetupState.activeSyncServer = bestEndpoint.server()
+        }
+
+        XCTAssertEqual(switchedEndpoints.value, [bestEndpoint.server()])
+        XCTAssertEqual(storedServer.value?.host, bestEndpoint.host)
+        XCTAssertEqual(storedServer.value?.port, bestEndpoint.port)
+
+        await store.finish()
+    }
+
+    @MainActor func testCompletedAutomaticBenchmarkDoesNotApplyWhenBackgrounded() async throws {
+        var appState = Root.State.initial
+        appState.appStartState = .didEnterBackground
+
+        let bestEndpoint = LightWalletEndpoint(
+            address: "faster.example.com",
+            port: 443,
+            secure: true,
+            streamingCallTimeoutInMillis: ZcashSDKEnvironment.ZcashSDKConstants.streamingCallTimeoutInMillis
+        )
+
+        let store = TestStore(
+            initialState: appState
+        ) {
+            Root()
+        }
+
+        await store.send(.automaticSyncEndpointEvaluated(bestEndpoint))
+
+        await store.finish()
+    }
+
+    @MainActor func testCompletedAutomaticBenchmarkDoesNotApplyInManualMode() async throws {
+        var appState = Root.State.initial
+        appState.appStartState = .willEnterForeground
+
+        let bestEndpoint = LightWalletEndpoint(
+            address: "faster.example.com",
+            port: 443,
+            secure: true,
+            streamingCallTimeoutInMillis: ZcashSDKEnvironment.ZcashSDKConstants.streamingCallTimeoutInMillis
+        )
+        let switchedEndpoints = UncheckedSendableBox<[String]>([])
+        let storedServer = UncheckedSendableBox<UserPreferencesStorage.ServerConfig?>(nil)
+
+        let store = TestStore(
+            initialState: appState
+        ) {
+            Root()
+        }
+
+        store.dependencies.userStoredPreferences.selectedServers = {
+            .init(
+                mode: .manual,
+                servers: [
+                    .init(host: "manual.example.com", port: 9067, isCustom: true)
+                ]
+            )
+        }
+        store.dependencies.userStoredPreferences.setServer = { config in
+            storedServer.value = config
+        }
+        store.dependencies.sdkSynchronizer = .mocked(
+            switchToEndpoint: { endpoint in
+                switchedEndpoints.value.append(endpoint.server())
+            }
+        )
+
+        await store.send(.automaticSyncEndpointEvaluated(bestEndpoint))
+
+        XCTAssertTrue(switchedEndpoints.value.isEmpty)
+        XCTAssertNil(storedServer.value)
 
         await store.finish()
     }

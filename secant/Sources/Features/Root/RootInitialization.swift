@@ -81,7 +81,8 @@ extension Root {
                 return .merge(
                     .cancel(id: state.CancelStateId),
                     .cancel(id: state.CancelTransactionsStateId),
-                    .cancel(id: state.serverBenchmarkCancelId)
+                    .cancel(id: state.serverBenchmarkCancelId),
+                    .cancel(id: state.automaticEndpointApplyCancelId)
                 )
 
             case .initialization(.appDelegate(.backgroundTask(let task))):

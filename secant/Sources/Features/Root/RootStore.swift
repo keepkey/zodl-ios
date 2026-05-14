@@ -46,6 +46,7 @@ struct Root {
         var DidFinishLaunchingId = UUID()
         var CancelFlexaId = UUID()
         var serverBenchmarkCancelId = UUID()
+        var automaticEndpointApplyCancelId = UUID()
         var shieldingProcessorCancelId = UUID()
 
         @Shared(.inMemory(.addressBookContacts)) var addressBookContacts: AddressBookContacts = .empty
@@ -201,6 +202,7 @@ struct Root {
         case backToHomeFromServerSwitchTapped
         case benchmarkSyncEndpoint
         case benchmarkSyncEndpointIfForeground
+        case automaticSyncEndpointEvaluated(LightWalletEndpoint)
 
         // Transactions
         case observeTransactions
@@ -400,8 +402,18 @@ struct Root {
                 return .none
 
             case .serverSetup(.setServerTapped):
-                // Cancel the startup benchmark so it can't overwrite the user's save
-                return .cancel(id: state.serverBenchmarkCancelId)
+                // Cancel automatic benchmark work so it can't overwrite the user's save
+                return .merge(
+                    .cancel(id: state.serverBenchmarkCancelId),
+                    .cancel(id: state.automaticEndpointApplyCancelId)
+                )
+
+            case .serverSetup(.evaluatedServers(let requestID, let bestServers)):
+                guard requestID == state.serverSetupState.serverEvaluationRequestID,
+                      let best = bestServers.first else {
+                    return .none
+                }
+                return .send(.automaticSyncEndpointEvaluated(best))
 
             case .serverSetup:
                 return .none
@@ -424,14 +436,15 @@ struct Root {
                     .cancel(id: state.SynchronizerCancelId),
                     .cancel(id: state.WalletConfigCancelId),
                     .cancel(id: state.DidFinishLaunchingId),
-                    .cancel(id: state.serverBenchmarkCancelId)
+                    .cancel(id: state.serverBenchmarkCancelId),
+                    .cancel(id: state.automaticEndpointApplyCancelId)
                 )
 
             case .onboarding(.newWalletSuccessfulyCreated):
                 return .send(.initialization(.initializeSDK(.newWallet)))
 
             case .benchmarkSyncEndpoint:
-                return .run { _ in
+                return .run { send in
                     // Only benchmark in automatic mode — manual users chose their server explicitly
                     guard let config = userStoredPreferences.selectedServers(),
                           config.mode == .automatic else { return }
@@ -450,60 +463,7 @@ struct Root {
 
                     guard let best = bestServers.first else { return }
 
-                    // Re-check mode — user may have switched to manual while benchmark was in flight
-                    guard userStoredPreferences.selectedServers()?.mode == .automatic else { return }
-
-                    let currentEndpoint = zcashSDKEnvironment.endpoint()
-                    if best.host != currentEndpoint.host || best.port != currentEndpoint.port {
-                        do {
-                            try Task.checkCancellation()
-                            // Re-check immediately before switching. A manual save cancels this
-                            // effect, but this also covers saves that complete between benchmark
-                            // selection and the endpoint switch.
-                            guard userStoredPreferences.selectedServers()?.mode == .automatic else { return }
-
-                            try await sdkSynchronizer.switchToEndpoint(best)
-
-                            // Re-check after async switch — if user saved manual mode while
-                            // switchToEndpoint was in flight, revert to their chosen server.
-                            // Read from selectedServers (not the legacy key) because the manual
-                            // save path writes selectedServers first, so it's always up-to-date here.
-                            guard userStoredPreferences.selectedServers()?.mode == .automatic else {
-                                if let config = userStoredPreferences.selectedServers(),
-                                   config.mode == .manual,
-                                   let manualServer = config.servers.first {
-                                    let revert = manualServer.endpoint(
-                                        streamingCallTimeoutInMillis: ZcashSDKEnvironment.ZcashSDKConstants.streamingCallTimeoutInMillis
-                                    )
-                                    do {
-                                        try await sdkSynchronizer.switchToEndpoint(revert)
-                                    } catch {
-                                        LoggerProxy.error("[Benchmark] Failed to restore manual endpoint: \(error)")
-                                    }
-                                }
-                                return
-                            }
-
-                            let isCustom = !ZcashSDKEnvironment.isKnownEndpoint(
-                                host: best.host,
-                                port: best.port,
-                                network: network
-                            )
-                            let serverConfig = UserPreferencesStorage.ServerConfig(
-                                host: best.host,
-                                port: best.port,
-                                isCustom: isCustom
-                            )
-                            // Only the legacy `server` key is updated here — `selectedServers.servers`
-                            // stays empty in automatic mode by design. The active sync server is always
-                            // derived from the legacy key; `selectedServers` only stores the mode.
-                            try userStoredPreferences.setServer(serverConfig)
-                        } catch is CancellationError {
-                            return
-                        } catch {
-                            LoggerProxy.error("[Benchmark] Failed to switch endpoint: \(error)")
-                        }
-                    }
+                    await send(.automaticSyncEndpointEvaluated(best))
                 }
                 .cancellable(id: state.serverBenchmarkCancelId, cancelInFlight: true)
 
@@ -514,9 +474,90 @@ struct Root {
                 }
                 return .send(.benchmarkSyncEndpoint)
 
+            case .automaticSyncEndpointEvaluated(let best):
+                guard canApplyAutomaticEndpoint(in: state) else {
+                    return .none
+                }
+                return applyAutomaticEndpoint(best, cancelID: state.automaticEndpointApplyCancelId)
+
             default: return .none
             }
         }
+    }
+
+    private func canApplyAutomaticEndpoint(in state: State) -> Bool {
+        state.bgTask == nil
+        && state.appStartState != .backgroundTask
+        && state.appStartState != .didEnterBackground
+    }
+
+    private func applyAutomaticEndpoint(
+        _ endpoint: LightWalletEndpoint,
+        cancelID: UUID
+    ) -> Effect<Action> {
+        let network = zcashSDKEnvironment.network.networkType
+
+        return .run { send in
+            do {
+                guard userStoredPreferences.selectedServers()?.mode == .automatic else { return }
+
+                let currentEndpoint = zcashSDKEnvironment.endpoint()
+                if endpoint.host == currentEndpoint.host && endpoint.port == currentEndpoint.port {
+                    await send(.serverSetup(.automaticEndpointUpdated(endpoint.server())))
+                    return
+                }
+
+                try Task.checkCancellation()
+                // Re-check immediately before switching. A manual save cancels this
+                // effect, but this also covers saves that complete between result
+                // selection and the endpoint switch.
+                guard userStoredPreferences.selectedServers()?.mode == .automatic else { return }
+
+                try await sdkSynchronizer.switchToEndpoint(endpoint)
+
+                // Re-check after async switch. If the user saved manual mode while
+                // switchToEndpoint was in flight, restore their chosen manual server.
+                // Read from selectedServers because the manual save path writes it first.
+                guard userStoredPreferences.selectedServers()?.mode == .automatic else {
+                    if let config = userStoredPreferences.selectedServers(),
+                       config.mode == .manual,
+                       let manualServer = config.servers.first {
+                        let revert = manualServer.endpoint(
+                            streamingCallTimeoutInMillis: ZcashSDKEnvironment.ZcashSDKConstants.streamingCallTimeoutInMillis
+                        )
+                        do {
+                            try await sdkSynchronizer.switchToEndpoint(revert)
+                        } catch {
+                            LoggerProxy.error("[Benchmark] Failed to restore manual endpoint: \(error)")
+                        }
+                    }
+                    return
+                }
+
+                try Task.checkCancellation()
+
+                let isCustom = !ZcashSDKEnvironment.isKnownEndpoint(
+                    host: endpoint.host,
+                    port: endpoint.port,
+                    network: network
+                )
+                let serverConfig = UserPreferencesStorage.ServerConfig(
+                    host: endpoint.host,
+                    port: endpoint.port,
+                    isCustom: isCustom
+                )
+                // Only the legacy `server` key is updated here. `selectedServers.servers`
+                // stays empty in automatic mode by design. The active sync server is
+                // derived from the legacy key while selectedServers stores the mode.
+                try userStoredPreferences.setServer(serverConfig)
+                await send(.serverSetup(.automaticEndpointUpdated(endpoint.server())))
+            } catch is CancellationError {
+                return
+            } catch {
+                LoggerProxy.error("[Benchmark] Failed to switch endpoint: \(error)")
+            }
+        }
+        .cancellable(id: cancelID, cancelInFlight: true)
     }
 }
 
