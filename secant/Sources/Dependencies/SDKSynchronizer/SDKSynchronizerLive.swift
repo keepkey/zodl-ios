@@ -525,6 +525,21 @@ extension SDKSynchronizerClient {
                 statuses.append("accepted by \(winner)")
                 LoggerProxy.event("\(logPrefix) Transaction \(index) accepted by \(winner).")
             } else {
+                if await submitTimeoutStore.didTimeOut() {
+                    statuses.append(MultiServerSubmissionTiming.timeoutDescription)
+                    LoggerProxy.error("\(logPrefix) Transaction \(index) timed out waiting for endpoint response.")
+                    if acceptedCount > 0 {
+                        statuses.append(contentsOf: notAttemptedStatuses(after: index, transactionCount: transactions.count))
+                        return .partial(txIds: txIds, statuses: statuses)
+                    }
+
+                    return .grpcFailure(
+                        txIds: txIds,
+                        description: MultiServerSubmissionTiming.timeoutDescription,
+                        reason: .timeout
+                    )
+                }
+
                 if let submitFailure = await submitFailureStore.recordedFailure() {
                     statuses.append(submitFailure.status)
                     LoggerProxy.error(
@@ -547,13 +562,7 @@ extension SDKSynchronizerClient {
                     return .partial(txIds: txIds, statuses: statuses)
                 }
 
-                return await submitTimeoutStore.didTimeOut()
-                    ? .grpcFailure(
-                        txIds: txIds,
-                        description: MultiServerSubmissionTiming.timeoutDescription,
-                        reason: .timeout
-                    )
-                    : .grpcFailure(txIds: txIds)
+                return .grpcFailure(txIds: txIds)
             }
         }
 
