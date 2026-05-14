@@ -18,6 +18,34 @@ extension DependencyValues {
     }
 }
 
+actor EndpointSwitchCoordinator {
+    func switchToEndpoint(
+        _ endpoint: LightWalletEndpoint,
+        previousEndpoint: LightWalletEndpoint? = nil,
+        switchToEndpoint: @escaping @Sendable (LightWalletEndpoint) async throws -> Void
+    ) async throws {
+        try Task.checkCancellation()
+        try await switchToEndpoint(endpoint)
+
+        do {
+            try Task.checkCancellation()
+        } catch {
+            if let previousEndpoint {
+                do {
+                    try await switchToEndpoint(previousEndpoint)
+                } catch {
+                    LoggerProxy.error("[EndpointSwitch] Failed to restore endpoint after cancellation: \(error)")
+                }
+            }
+            throw error
+        }
+    }
+}
+
+enum EndpointSwitching {
+    static let coordinator = EndpointSwitchCoordinator()
+}
+
 @DependencyClient
 struct SDKSynchronizerClient {
     enum CreateProposedTransactionsResult: Equatable {
@@ -107,4 +135,3 @@ struct SDKSynchronizerClient {
 
     var getTreeState: @Sendable (_ height: UInt64) async throws -> Data
 }
-

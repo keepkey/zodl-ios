@@ -513,7 +513,11 @@ struct Root {
                 // selection and the endpoint switch.
                 guard userStoredPreferences.selectedServers()?.mode == .automatic else { return }
 
-                try await sdkSynchronizer.switchToEndpoint(endpoint)
+                try await EndpointSwitching.coordinator.switchToEndpoint(
+                    endpoint,
+                    previousEndpoint: currentEndpoint,
+                    switchToEndpoint: sdkSynchronizer.switchToEndpoint
+                )
 
                 // Re-check after async switch. If the user saved manual mode while
                 // switchToEndpoint was in flight, restore their chosen manual server.
@@ -526,7 +530,10 @@ struct Root {
                             streamingCallTimeoutInMillis: ZcashSDKEnvironment.ZcashSDKConstants.streamingCallTimeoutInMillis
                         )
                         do {
-                            try await sdkSynchronizer.switchToEndpoint(revert)
+                            try await EndpointSwitching.coordinator.switchToEndpoint(
+                                revert,
+                                switchToEndpoint: sdkSynchronizer.switchToEndpoint
+                            )
                         } catch {
                             LoggerProxy.error("[Benchmark] Failed to restore manual endpoint: \(error)")
                         }

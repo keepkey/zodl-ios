@@ -248,8 +248,12 @@ struct ServerSetup {
                     // Use already-evaluated best server when available to avoid a redundant benchmark
                     let cachedRecommendation = state.recommendedSyncServer
                     let timeout = streamingCallTimeoutInMillis
+                    let previousConfig = userStoredPreferences.selectedServers()
 
                     return .run { send in
+                        var endpointBeforeSwitch: LightWalletEndpoint?
+                        var attemptedEndpointSwitch = false
+
                         do {
                             let best: LightWalletEndpoint
 
@@ -272,22 +276,39 @@ struct ServerSetup {
                             }
 
                             let currentEndpoint = zcashSDKEnvironment.endpoint()
-                            if best.host != currentEndpoint.host || best.port != currentEndpoint.port {
-                                try await sdkSynchronizer.switchToEndpoint(best)
-                            }
-
+                            endpointBeforeSwitch = currentEndpoint
                             let serverConfig = UserPreferencesStorage.ServerConfig(
                                 host: best.host, port: best.port, isCustom: false
                             )
                             // In automatic mode, selectedServers stores only the mode while the
                             // legacy server key caches the active benchmarked endpoint.
                             try userStoredPreferences.setSelectedServers(.init(mode: .automatic, servers: []))
+
+                            if best.host != currentEndpoint.host || best.port != currentEndpoint.port {
+                                attemptedEndpointSwitch = true
+                                try await EndpointSwitching.coordinator.switchToEndpoint(
+                                    best,
+                                    switchToEndpoint: sdkSynchronizer.switchToEndpoint
+                                )
+                            }
+
                             try userStoredPreferences.setServer(serverConfig)
 
                             let bestServerString = "\(best.host):\(best.port)"
                             try await mainQueue.sleep(for: ServerEvaluationDefaults.saveCompletionDelay)
                             await send(.switchSucceeded(bestServerString))
+                        } catch is CancellationError {
+                            return
                         } catch {
+                            if let previousConfig {
+                                try? userStoredPreferences.setSelectedServers(previousConfig)
+                            }
+                            if attemptedEndpointSwitch, let endpointBeforeSwitch {
+                                try? await EndpointSwitching.coordinator.switchToEndpoint(
+                                    endpointBeforeSwitch,
+                                    switchToEndpoint: sdkSynchronizer.switchToEndpoint
+                                )
+                            }
                             await send(.switchFailed(error.toZcashError()))
                         }
                     }
@@ -324,9 +345,14 @@ struct ServerSetup {
                     }
 
                     return .run { send in
+                        let shouldSwitchEndpoint = endpoint.host != currentEndpoint.host
+                            || endpoint.port != currentEndpoint.port
                         do {
-                            if endpoint.host != currentEndpoint.host || endpoint.port != currentEndpoint.port {
-                                try await sdkSynchronizer.switchToEndpoint(endpoint)
+                            if shouldSwitchEndpoint {
+                                try await EndpointSwitching.coordinator.switchToEndpoint(
+                                    endpoint,
+                                    switchToEndpoint: sdkSynchronizer.switchToEndpoint
+                                )
                             }
 
                             // Cache the active endpoint for automatic mode and legacy callers.
@@ -335,10 +361,18 @@ struct ServerSetup {
                             let serverStr = "\(endpoint.host):\(endpoint.port)"
                             try await mainQueue.sleep(for: ServerEvaluationDefaults.saveCompletionDelay)
                             await send(.switchSucceeded(serverStr))
+                        } catch is CancellationError {
+                            return
                         } catch {
                             // Revert the intent flag on failure
                             if let previousConfig {
                                 try? userStoredPreferences.setSelectedServers(previousConfig)
+                            }
+                            if shouldSwitchEndpoint {
+                                try? await EndpointSwitching.coordinator.switchToEndpoint(
+                                    currentEndpoint,
+                                    switchToEndpoint: sdkSynchronizer.switchToEndpoint
+                                )
                             }
                             await send(.switchFailed(error.toZcashError()))
                         }
