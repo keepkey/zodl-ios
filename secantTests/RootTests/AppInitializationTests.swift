@@ -10,14 +10,6 @@ import ComposableArchitecture
 @preconcurrency import ZcashLightClientKit
 @testable import secant_testnet
 
-private final class UncheckedSendableBox<Value>: @unchecked Sendable {
-    var value: Value
-
-    init(_ value: Value) {
-        self.value = value
-    }
-}
-
 class AppInitializationTests: XCTestCase {
     @MainActor func testForegroundBenchmarkGateRunsBenchmark() async throws {
         var appState = Root.State.initial
