@@ -7,9 +7,38 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		01AD47531CB08464E4EE009C /* AddKeepKeyHWWalletStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33399ECBC695D599D089197 /* AddKeepKeyHWWalletStore.swift */; };
+		01F04213FA86B609B346384A /* AddKeepKeyHWWalletCoordFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC9305E03A990B970EABFFD /* AddKeepKeyHWWalletCoordFlowView.swift */; };
+		03024EC2F110A973986BD9DA /* AddKeepKeyHWWalletCoordFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7290D8D54DA01ED4DBB251AF /* AddKeepKeyHWWalletCoordFlowCoordinator.swift */; };
+		0549608A6CCD2A47D02D3891 /* SignWithKeepKeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FB8D1EDE7CFA9C6DB5C03D /* SignWithKeepKeyView.swift */; };
+		08293C9271DB1A0E73CBC4C3 /* types.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92367C6D2249E1BB3AD8337 /* types.pb.swift */; };
+		08E105C35C0917C500B97660 /* AddKeepKeyHWWalletCoordFlowStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D317C9A001D3CE039F256A33 /* AddKeepKeyHWWalletCoordFlowStore.swift */; };
+		0ABCB41D38640837297C1BC0 /* SignWithKeepKeyCoordFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76278EF44BC8162DE16CF453 /* SignWithKeepKeyCoordFlowView.swift */; };
+		0C7A713F7D68188BBEB0F3E1 /* KeepKeyTransportLiveKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6614EC08A3D8E1824FE9DA2D /* KeepKeyTransportLiveKey.swift */; };
+		0CE955B9C5427DC857AB6485 /* SignWithKeepKeyCoordFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7857694E522E4D9DDA45726B /* SignWithKeepKeyCoordFlowCoordinator.swift */; };
 		0D26AF84299E8196005260EE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0D4E7A0F26B364180058B01E /* Preview Assets.xcassets */; };
 		0D26AF88299E8196005260EE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E2F1C8B280ED6A7004E65FE /* LaunchScreen.storyboard */; };
 		0D4E7A1026B364180058B01E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0D4E7A0F26B364180058B01E /* Preview Assets.xcassets */; };
+		0DFF8536F698757FC8D9CEF7 /* WalletConnect in Frameworks */ = {isa = PBXBuildFile; productRef = 2A36818C38457E5662D1CC11 /* WalletConnect */; };
+		0E9922EB12CD8B04941336BE /* SignWithKeepKeyCoordFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76278EF44BC8162DE16CF453 /* SignWithKeepKeyCoordFlowView.swift */; };
+		17D3D87850FF42F754199980 /* SigningInProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A7EF5E19D1951EB3D15C76 /* SigningInProgressView.swift */; };
+		17EC13DEE5D730D34F47549D /* WalletConnect in Frameworks */ = {isa = PBXBuildFile; productRef = 29E8A9991B91F14326802621 /* WalletConnect */; };
+		1AD135BA6BE1D4CED0DB93E1 /* KeepKeyConnectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E92F5D0796DFB991725F98 /* KeepKeyConnectedView.swift */; };
+		1D7E4373BAD88041A052EA78 /* AddKeepKeyHWWalletStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33399ECBC695D599D089197 /* AddKeepKeyHWWalletStore.swift */; };
+		1F1CA77C0AABB7D05D1F40F5 /* WalletConnect in Frameworks */ = {isa = PBXBuildFile; productRef = 4360391B7BD346949D4A82A5 /* WalletConnect */; };
+		21A80A6B749141F4A9609A82 /* SignWithKeepKeyCoordFlowStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B6B8E74711FF1239528CAE /* SignWithKeepKeyCoordFlowStore.swift */; };
+		22A0C0FE2CB15983EA9A4C8A /* AddKeepKeyHWWalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51499C39222F1559229B4811 /* AddKeepKeyHWWalletView.swift */; };
+		23BD3C1267E271FFE7A7E2B3 /* ConnectKeepKeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84B3A55EBF70385FDD22434 /* ConnectKeepKeyView.swift */; };
+		258D60A96608C4FFBB0FA32E /* AddKeepKeyHWWalletCoordFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7290D8D54DA01ED4DBB251AF /* AddKeepKeyHWWalletCoordFlowCoordinator.swift */; };
+		25A2A8AA8925EA699434F4FB /* types.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92367C6D2249E1BB3AD8337 /* types.pb.swift */; };
+		28AB399F04A8CE306D2D964A /* KeepKeyDeviceReadyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7486BEADCC6326625311CFEF /* KeepKeyDeviceReadyView.swift */; };
+		291537EE38736BF9904C1508 /* AddKeepKeyHWWalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51499C39222F1559229B4811 /* AddKeepKeyHWWalletView.swift */; };
+		295498644F8593B159162854 /* SignWithKeepKeyCoordFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76278EF44BC8162DE16CF453 /* SignWithKeepKeyCoordFlowView.swift */; };
+		296E37BF763CD0842F23FAB5 /* AddKeepKeyHWWalletCoordFlowStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D317C9A001D3CE039F256A33 /* AddKeepKeyHWWalletCoordFlowStore.swift */; };
+		2A2F37BB05BF6137C661EFE5 /* SigningInProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A7EF5E19D1951EB3D15C76 /* SigningInProgressView.swift */; };
+		2C77D5F5FC253C14ED7C1DB0 /* KeepKeyConnectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E92F5D0796DFB991725F98 /* KeepKeyConnectedView.swift */; };
+		3145659C9BAFDC85B4BF529F /* ConnectKeepKeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84B3A55EBF70385FDD22434 /* ConnectKeepKeyView.swift */; };
+		32AB26D4F8236590CC589526 /* SignWithKeepKeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FB8D1EDE7CFA9C6DB5C03D /* SignWithKeepKeyView.swift */; };
 		34755C632F8647B00093FC84 /* DisconnectHWWalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34755C612F8647B00093FC84 /* DisconnectHWWalletView.swift */; };
 		34755C642F8647B00093FC84 /* DisconnectHWWalletStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34755C602F8647B00093FC84 /* DisconnectHWWalletStore.swift */; };
 		34755C652F8647B00093FC84 /* DisconnectHWWalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34755C612F8647B00093FC84 /* DisconnectHWWalletView.swift */; };
@@ -2425,6 +2454,44 @@
 		37D0F0000000000000000022 /* RoundAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D0F0000000000000000002 /* RoundAuthenticator.swift */; };
 		37D0F0000000000000000023 /* RoundAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D0F0000000000000000002 /* RoundAuthenticator.swift */; };
 		37D0F0000000000000000024 /* RoundAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D0F0000000000000000002 /* RoundAuthenticator.swift */; };
+		3E47C127601A697D618DE346 /* SignWithKeepKeyCoordFlowStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B6B8E74711FF1239528CAE /* SignWithKeepKeyCoordFlowStore.swift */; };
+		40D5E57895DFBC6DFA4387DC /* SignWithKeepKeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FB8D1EDE7CFA9C6DB5C03D /* SignWithKeepKeyView.swift */; };
+		4404EDD52847D7B2639CE532 /* SignWithKeepKeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FB8D1EDE7CFA9C6DB5C03D /* SignWithKeepKeyView.swift */; };
+		464F326F794033B9080AAD47 /* KeepKeyDeviceReadyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7486BEADCC6326625311CFEF /* KeepKeyDeviceReadyView.swift */; };
+		46A7CF85822C271BD01AE87F /* messages-zcash.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE2794EB47A4B7008EF89FD /* messages-zcash.pb.swift */; };
+		487705E5055CE9EACB060A3B /* AddKeepKeyHWWalletCoordFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7290D8D54DA01ED4DBB251AF /* AddKeepKeyHWWalletCoordFlowCoordinator.swift */; };
+		4B3A0AFD1EA4A5F55804AC4B /* KeepKeyTransportLiveKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6614EC08A3D8E1824FE9DA2D /* KeepKeyTransportLiveKey.swift */; };
+		4B53ECD4BC6D99ED060692B5 /* SignWithKeepKeyCoordFlowStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B6B8E74711FF1239528CAE /* SignWithKeepKeyCoordFlowStore.swift */; };
+		526E88E11B81F9D6497AF824 /* ConnectKeepKeyStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0200121F88E33288F4C141 /* ConnectKeepKeyStore.swift */; };
+		54C24F327DC2CF9A497DE9B5 /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = 49D284AFCCF90B3EB659D111 /* SwiftProtobuf */; };
+		56CFAC4214ECD0F5C84F8360 /* ConnectKeepKeyStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0200121F88E33288F4C141 /* ConnectKeepKeyStore.swift */; };
+		582C34A58D28777EFFB2577C /* KeepKeyDeviceReadyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7486BEADCC6326625311CFEF /* KeepKeyDeviceReadyView.swift */; };
+		5864833FD5713019CB9A934D /* ConnectKeepKeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84B3A55EBF70385FDD22434 /* ConnectKeepKeyView.swift */; };
+		5A595E9E2E4E435AE122FCF9 /* ConnectKeepKeyStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0200121F88E33288F4C141 /* ConnectKeepKeyStore.swift */; };
+		5BEBBD5FC27CE790E87645BF /* SignWithKeepKeyCoordFlowStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B6B8E74711FF1239528CAE /* SignWithKeepKeyCoordFlowStore.swift */; };
+		5F5F2E9FF20D00E144DCEE45 /* AddKeepKeyHWWalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51499C39222F1559229B4811 /* AddKeepKeyHWWalletView.swift */; };
+		60857CC117A74395FA77136A /* SigningInProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A7EF5E19D1951EB3D15C76 /* SigningInProgressView.swift */; };
+		60B1CB713511285DEA0500D1 /* KeepKeyTransportInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8D3A516CF809B5DD271EF6 /* KeepKeyTransportInterface.swift */; };
+		63E3B889872F25A8D88A9DC1 /* AddKeepKeyHWWalletCoordFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC9305E03A990B970EABFFD /* AddKeepKeyHWWalletCoordFlowView.swift */; };
+		6786C64E8DAE2097999C446C /* KeepKeyConnectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E92F5D0796DFB991725F98 /* KeepKeyConnectedView.swift */; };
+		67A3BC3BAA6A8F230103E7FC /* ConnectKeepKeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84B3A55EBF70385FDD22434 /* ConnectKeepKeyView.swift */; };
+		6B3BDFF29C4E76CB6FB29DA3 /* ConnectKeepKeyStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0200121F88E33288F4C141 /* ConnectKeepKeyStore.swift */; };
+		6BE183D246118269A41A5E33 /* KeepKeyConnectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E92F5D0796DFB991725F98 /* KeepKeyConnectedView.swift */; };
+		6DCD5BA94FCE0835BDF61CBB /* AddKeepKeyHWWalletCoordFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7290D8D54DA01ED4DBB251AF /* AddKeepKeyHWWalletCoordFlowCoordinator.swift */; };
+		707929D92BAEAF1AE31F9958 /* AddKeepKeyHWWalletCoordFlowStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D317C9A001D3CE039F256A33 /* AddKeepKeyHWWalletCoordFlowStore.swift */; };
+		7614FA7C627BEB00AD182DE0 /* AddKeepKeyHWWalletCoordFlowStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D317C9A001D3CE039F256A33 /* AddKeepKeyHWWalletCoordFlowStore.swift */; };
+		76FB230DA5F08573F682E6D6 /* KeepKeyDeviceReadyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7486BEADCC6326625311CFEF /* KeepKeyDeviceReadyView.swift */; };
+		77F41698BF72F8C2DE192AEE /* AddKeepKeyHWWalletStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33399ECBC695D599D089197 /* AddKeepKeyHWWalletStore.swift */; };
+		7A33C5A531C7183190A83AE8 /* SigningInProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A7EF5E19D1951EB3D15C76 /* SigningInProgressView.swift */; };
+		7D8C0157171CA860EADD13FE /* types.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92367C6D2249E1BB3AD8337 /* types.pb.swift */; };
+		7DF2928F9060FF0A8D73F784 /* AddKeepKeyHWWalletCoordFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC9305E03A990B970EABFFD /* AddKeepKeyHWWalletCoordFlowView.swift */; };
+		80C150757B75183DB9637041 /* KeepKeyTransportInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8D3A516CF809B5DD271EF6 /* KeepKeyTransportInterface.swift */; };
+		86660E3F7FD1C484A9987AC7 /* KeepKeyTransportLiveKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6614EC08A3D8E1824FE9DA2D /* KeepKeyTransportLiveKey.swift */; };
+		8C60879F04FDC0675B2C7140 /* AddKeepKeyHWWalletCoordFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7290D8D54DA01ED4DBB251AF /* AddKeepKeyHWWalletCoordFlowCoordinator.swift */; };
+		9239E2A4E30BC875AC1E48C3 /* AddKeepKeyHWWalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51499C39222F1559229B4811 /* AddKeepKeyHWWalletView.swift */; };
+		9764FBE98996B7DEDEBB0FD7 /* WalletConnect in Frameworks */ = {isa = PBXBuildFile; productRef = 3B5AB2C50D6141E4BF1832E2 /* WalletConnect */; };
+		9A4E35D39E40F892C62686EB /* SignWithKeepKeyCoordFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7857694E522E4D9DDA45726B /* SignWithKeepKeyCoordFlowCoordinator.swift */; };
+		9AF478E0331712DB8B35D7C1 /* AddKeepKeyHWWalletStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33399ECBC695D599D089197 /* AddKeepKeyHWWalletStore.swift */; };
 		9E0C0D702AFB842B00D69A16 /* TransactionStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0C0D6F2AFB842B00D69A16 /* TransactionStateTests.swift */; };
 		9E139AAF2B07B3A600D104B8 /* ZatoshiStringRepresentationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E139AAE2B07B3A600D104B8 /* ZatoshiStringRepresentationTests.swift */; };
 		9E1FAFB72AF2C6D40084CA3D /* PrivateDataConsentSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1FAFB62AF2C6D40084CA3D /* PrivateDataConsentSnapshotTests.swift */; };
@@ -2547,9 +2614,47 @@
 		9EDDAF6E2BA2D71700A69A07 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 9EDDAF6C2BA2D71700A69A07 /* PrivacyInfo.xcprivacy */; };
 		9EDDAF6F2BA2D71700A69A07 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 9EDDAF6C2BA2D71700A69A07 /* PrivacyInfo.xcprivacy */; };
 		9EEB06C62B344F1E00EEE50F /* SyncProgressTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EEB06C52B344F1E00EEE50F /* SyncProgressTests.swift */; };
+		A0491A672EBA40208CE1DDF3 /* messages-zcash.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE2794EB47A4B7008EF89FD /* messages-zcash.pb.swift */; };
+		A0870F848E08E3CD97C69C66 /* KeepKeyTransportLiveKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6614EC08A3D8E1824FE9DA2D /* KeepKeyTransportLiveKey.swift */; };
+		A1B1639D0DBC9F21B7C4BE17 /* SignWithKeepKeyCoordFlowStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B6B8E74711FF1239528CAE /* SignWithKeepKeyCoordFlowStore.swift */; };
+		A7B68D88479D2FEEAEA77837 /* AddKeepKeyHWWalletCoordFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC9305E03A990B970EABFFD /* AddKeepKeyHWWalletCoordFlowView.swift */; };
+		A8CBD2590012736D858A8507 /* KeepKeyTransportInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8D3A516CF809B5DD271EF6 /* KeepKeyTransportInterface.swift */; };
 		A9987CA32F96D90500C9B8BE /* VotingServiceConfigTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9987C9F2F96D90500C9B8BE /* VotingServiceConfigTests.swift */; };
+		AC999B4C1A15FBCACDBA89C8 /* SignWithKeepKeyCoordFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7857694E522E4D9DDA45726B /* SignWithKeepKeyCoordFlowCoordinator.swift */; };
 		AD0D00102D00000100000001 /* VotingSessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0D00102D00000100000002 /* VotingSessionTests.swift */; };
 		AD0D00112D00000100000001 /* VotingSubmissionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0D00112D00000100000002 /* VotingSubmissionTests.swift */; };
+		AD55387821DABD3C97FCC90E /* SignWithKeepKeyCoordFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7857694E522E4D9DDA45726B /* SignWithKeepKeyCoordFlowCoordinator.swift */; };
+		AE8B6F95065858D958BA2279 /* KeepKeyTransportInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8D3A516CF809B5DD271EF6 /* KeepKeyTransportInterface.swift */; };
+		AE945CC26F79B21C53DE01A4 /* messages-zcash.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE2794EB47A4B7008EF89FD /* messages-zcash.pb.swift */; };
+		AFB219140DE578CC913B75EE /* WalletConnect in Frameworks */ = {isa = PBXBuildFile; productRef = 90DDB9AF4776FB3B327F8685 /* WalletConnect */; };
+		B17ADF01A12E025F6608CE7E /* AddKeepKeyHWWalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51499C39222F1559229B4811 /* AddKeepKeyHWWalletView.swift */; };
+		B6547E7C67297BE22BC186E5 /* SigningInProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A7EF5E19D1951EB3D15C76 /* SigningInProgressView.swift */; };
+		BA08D1119F8AD7E3CDA83A37 /* ConnectKeepKeyStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0200121F88E33288F4C141 /* ConnectKeepKeyStore.swift */; };
+		BAB5DC202AE4D3BE0F8F60A0 /* AddKeepKeyHWWalletStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33399ECBC695D599D089197 /* AddKeepKeyHWWalletStore.swift */; };
+		BC88994E596459E001161F91 /* types.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92367C6D2249E1BB3AD8337 /* types.pb.swift */; };
+		BF410EAC88AB35FE3012D456 /* ConnectKeepKeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84B3A55EBF70385FDD22434 /* ConnectKeepKeyView.swift */; };
+		C2393DA038CB96DEEF9EE1D8 /* AddKeepKeyHWWalletCoordFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC9305E03A990B970EABFFD /* AddKeepKeyHWWalletCoordFlowView.swift */; };
+		C25D393F6163C63A82EA6515 /* messages-zcash.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE2794EB47A4B7008EF89FD /* messages-zcash.pb.swift */; };
+		C31AC75BFD008AE9F0548EF4 /* KeepKeyTransportLiveKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6614EC08A3D8E1824FE9DA2D /* KeepKeyTransportLiveKey.swift */; };
+		C63E2B997A577C54E3A6C042 /* KeepKeyTransportInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8D3A516CF809B5DD271EF6 /* KeepKeyTransportInterface.swift */; };
+		C7A7FFA3EB27F452B191F0C9 /* KeepKeyDeviceReadyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7486BEADCC6326625311CFEF /* KeepKeyDeviceReadyView.swift */; };
+		CF758F5E33A4DD6E0786CDE1 /* SignWithKeepKeyCoordFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76278EF44BC8162DE16CF453 /* SignWithKeepKeyCoordFlowView.swift */; };
+		D020A58B40D482E2AD5C6B77 /* SignWithKeepKeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FB8D1EDE7CFA9C6DB5C03D /* SignWithKeepKeyView.swift */; };
+		D10C25CFF9E4F035F89A8675 /* messages-zcash.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE2794EB47A4B7008EF89FD /* messages-zcash.pb.swift */; };
+		D7805EC13597D373133C9255 /* messages.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC547624D0F09B48D381B8B /* messages.pb.swift */; };
+		D8D0918F3DBAA3480B118405 /* AddKeepKeyHWWalletCoordFlowStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D317C9A001D3CE039F256A33 /* AddKeepKeyHWWalletCoordFlowStore.swift */; };
+		DCB5E2D157ED7E2CC66B91BF /* messages.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC547624D0F09B48D381B8B /* messages.pb.swift */; };
+		DCBBAA84D33178B00B9F9B0C /* SignWithKeepKeyCoordFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76278EF44BC8162DE16CF453 /* SignWithKeepKeyCoordFlowView.swift */; };
+		DF029B1EA4644D0B2D35E37C /* messages.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC547624D0F09B48D381B8B /* messages.pb.swift */; };
+		E5DD896145CDEA133BEDE7D0 /* types.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92367C6D2249E1BB3AD8337 /* types.pb.swift */; };
+		E63F229EA0BAA1A9196FDF42 /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = F71A052BE967969C9ED17741 /* SwiftProtobuf */; };
+		E81A25CF1CFDE4F4A0D0CA46 /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = 0D5501BA0A592D47E6BF0ACC /* SwiftProtobuf */; };
+		EB052AC42337CF00745D1AEE /* messages.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC547624D0F09B48D381B8B /* messages.pb.swift */; };
+		EB17614FB14EA024AC171D1E /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = 50B4E860D5EE2468FB4C1F70 /* SwiftProtobuf */; };
+		EC1DE74AAA361C9C3E5CD17C /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = 502316A5129DD0C268A3C3E5 /* SwiftProtobuf */; };
+		EF0D8E02B700B3D1BD3A0829 /* SignWithKeepKeyCoordFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7857694E522E4D9DDA45726B /* SignWithKeepKeyCoordFlowCoordinator.swift */; };
+		FC8B02677D21EB96EAD05A3E /* messages.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC547624D0F09B48D381B8B /* messages.pb.swift */; };
+		FF0AAAF374096170AB9F3945 /* KeepKeyConnectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E92F5D0796DFB991725F98 /* KeepKeyConnectedView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -3056,6 +3161,17 @@
 		37D001A796A834CF74ECA110 /* StoredVotingHotkey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoredVotingHotkey.swift; sourceTree = "<group>"; };
 		37D0F0000000000000000001 /* StaticVotingConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticVotingConfig.swift; sourceTree = "<group>"; };
 		37D0F0000000000000000002 /* RoundAuthenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundAuthenticator.swift; sourceTree = "<group>"; };
+		51499C39222F1559229B4811 /* AddKeepKeyHWWalletView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AddKeepKeyHWWalletView.swift; sourceTree = "<group>"; };
+		5B8D3A516CF809B5DD271EF6 /* KeepKeyTransportInterface.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = KeepKeyTransportInterface.swift; sourceTree = "<group>"; };
+		6614EC08A3D8E1824FE9DA2D /* KeepKeyTransportLiveKey.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = KeepKeyTransportLiveKey.swift; sourceTree = "<group>"; };
+		68FB8D1EDE7CFA9C6DB5C03D /* SignWithKeepKeyView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SignWithKeepKeyView.swift; sourceTree = "<group>"; };
+		69E92F5D0796DFB991725F98 /* KeepKeyConnectedView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = KeepKeyConnectedView.swift; sourceTree = "<group>"; };
+		6AC547624D0F09B48D381B8B /* messages.pb.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = messages.pb.swift; sourceTree = "<group>"; };
+		7290D8D54DA01ED4DBB251AF /* AddKeepKeyHWWalletCoordFlowCoordinator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AddKeepKeyHWWalletCoordFlowCoordinator.swift; sourceTree = "<group>"; };
+		7486BEADCC6326625311CFEF /* KeepKeyDeviceReadyView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = KeepKeyDeviceReadyView.swift; sourceTree = "<group>"; };
+		76278EF44BC8162DE16CF453 /* SignWithKeepKeyCoordFlowView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SignWithKeepKeyCoordFlowView.swift; sourceTree = "<group>"; };
+		7857694E522E4D9DDA45726B /* SignWithKeepKeyCoordFlowCoordinator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SignWithKeepKeyCoordFlowCoordinator.swift; sourceTree = "<group>"; };
+		7DC9305E03A990B970EABFFD /* AddKeepKeyHWWalletCoordFlowView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AddKeepKeyHWWalletCoordFlowView.swift; sourceTree = "<group>"; };
 		9E01F8272833CDA0000EFC57 /* ScanTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanTests.swift; sourceTree = "<group>"; };
 		9E02B56B27FED475005B809B /* DatabaseFilesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseFilesTests.swift; sourceTree = "<group>"; };
 		9E0C0D6F2AFB842B00D69A16 /* TransactionStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionStateTests.swift; sourceTree = "<group>"; };
@@ -3121,9 +3237,17 @@
 		9EEB06C52B344F1E00EEE50F /* SyncProgressTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncProgressTests.swift; sourceTree = "<group>"; };
 		9EF8135A27ECC25E0075AF48 /* WalletStorageTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletStorageTests.swift; sourceTree = "<group>"; };
 		9EF8135B27ECC25E0075AF48 /* UserPreferencesStorageTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPreferencesStorageTests.swift; sourceTree = "<group>"; };
+		A92367C6D2249E1BB3AD8337 /* types.pb.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = types.pb.swift; sourceTree = "<group>"; };
 		A9987C9F2F96D90500C9B8BE /* VotingServiceConfigTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VotingServiceConfigTests.swift; sourceTree = "<group>"; };
+		AB0200121F88E33288F4C141 /* ConnectKeepKeyStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ConnectKeepKeyStore.swift; sourceTree = "<group>"; };
 		AD0D00102D00000100000002 /* VotingSessionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VotingSessionTests.swift; sourceTree = "<group>"; };
 		AD0D00112D00000100000002 /* VotingSubmissionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VotingSubmissionTests.swift; sourceTree = "<group>"; };
+		CFE2794EB47A4B7008EF89FD /* messages-zcash.pb.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "messages-zcash.pb.swift"; sourceTree = "<group>"; };
+		D317C9A001D3CE039F256A33 /* AddKeepKeyHWWalletCoordFlowStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AddKeepKeyHWWalletCoordFlowStore.swift; sourceTree = "<group>"; };
+		D84B3A55EBF70385FDD22434 /* ConnectKeepKeyView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ConnectKeepKeyView.swift; sourceTree = "<group>"; };
+		D9B6B8E74711FF1239528CAE /* SignWithKeepKeyCoordFlowStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SignWithKeepKeyCoordFlowStore.swift; sourceTree = "<group>"; };
+		E33399ECBC695D599D089197 /* AddKeepKeyHWWalletStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AddKeepKeyHWWalletStore.swift; sourceTree = "<group>"; };
+		E8A7EF5E19D1951EB3D15C76 /* SigningInProgressView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SigningInProgressView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -3145,6 +3269,8 @@
 				34AA77502F85817B00D244E2 /* MnemonicSwift in Frameworks */,
 				34AA77322F8580C400D244E2 /* CasePaths in Frameworks */,
 				34AA77932F85836400D244E2 /* KeystoneSDK in Frameworks */,
+				EC1DE74AAA361C9C3E5CD17C /* SwiftProtobuf in Frameworks */,
+				1F1CA77C0AABB7D05D1F40F5 /* WalletConnect in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3166,6 +3292,8 @@
 				34AA774E2F85817200D244E2 /* MnemonicSwift in Frameworks */,
 				34AA772E2F8580B800D244E2 /* CasePaths in Frameworks */,
 				34AA77912F85835B00D244E2 /* KeystoneSDK in Frameworks */,
+				54C24F327DC2CF9A497DE9B5 /* SwiftProtobuf in Frameworks */,
+				17EC13DEE5D730D34F47549D /* WalletConnect in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3200,6 +3328,8 @@
 				34AA77562F85818900D244E2 /* MnemonicSwift in Frameworks */,
 				34AA773E2F8580D700D244E2 /* CasePaths in Frameworks */,
 				34AA77992F85837400D244E2 /* KeystoneSDK in Frameworks */,
+				E63F229EA0BAA1A9196FDF42 /* SwiftProtobuf in Frameworks */,
+				0DFF8536F698757FC8D9CEF7 /* WalletConnect in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3221,6 +3351,8 @@
 				34AA77522F85818000D244E2 /* MnemonicSwift in Frameworks */,
 				34AA77362F8580CB00D244E2 /* CasePaths in Frameworks */,
 				34AA77952F85836900D244E2 /* KeystoneSDK in Frameworks */,
+				EB17614FB14EA024AC171D1E /* SwiftProtobuf in Frameworks */,
+				9764FBE98996B7DEDEBB0FD7 /* WalletConnect in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3242,6 +3374,8 @@
 				34AA773A2F8580D000D244E2 /* CasePaths in Frameworks */,
 				34AA77972F85836E00D244E2 /* KeystoneSDK in Frameworks */,
 				34B967672F8CC48B00823B20 /* Atomics in Frameworks */,
+				E81A25CF1CFDE4F4A0D0CA46 /* SwiftProtobuf in Frameworks */,
+				AFB219140DE578CC913B75EE /* WalletConnect in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3348,6 +3482,16 @@
 				0DFE93DE272C6D4B000FCCA5 /* RecoveryPhraseBackupTests.swift */,
 			);
 			path = BackupFlowTests;
+			sourceTree = "<group>";
+		};
+		1181719ED58700A8299B799F /* Proto */ = {
+			isa = PBXGroup;
+			children = (
+				CFE2794EB47A4B7008EF89FD /* messages-zcash.pb.swift */,
+				6AC547624D0F09B48D381B8B /* messages.pb.swift */,
+				A92367C6D2249E1BB3AD8337 /* types.pb.swift */,
+			);
+			path = Proto;
 			sourceTree = "<group>";
 		};
 		343CF3F429BB5A14009E44DF /* Frameworks */ = {
@@ -3875,6 +4019,7 @@
 				37CEBE992F8E939D002DA90E /* VotingCryptoClient */,
 				37CEBEA02F8E939D002DA90E /* VotingModels */,
 				37CEBEA42F8E939D002DA90E /* VotingStorageClient */,
+				9DE2680B893314A2B3D7E147 /* KeepKey */,
 			);
 			path = Dependencies;
 			sourceTree = "<group>";
@@ -3959,6 +4104,12 @@
 				34AA6C8A2F85774F00D244E2 /* WalletBackupCoordFlowCoordinator.swift */,
 				34AA6C8B2F85774F00D244E2 /* WalletBackupCoordFlowStore.swift */,
 				34AA6C8C2F85774F00D244E2 /* WalletBackupCoordFlowView.swift */,
+				7290D8D54DA01ED4DBB251AF /* AddKeepKeyHWWalletCoordFlowCoordinator.swift */,
+				D317C9A001D3CE039F256A33 /* AddKeepKeyHWWalletCoordFlowStore.swift */,
+				7DC9305E03A990B970EABFFD /* AddKeepKeyHWWalletCoordFlowView.swift */,
+				7857694E522E4D9DDA45726B /* SignWithKeepKeyCoordFlowCoordinator.swift */,
+				D9B6B8E74711FF1239528CAE /* SignWithKeepKeyCoordFlowStore.swift */,
+				76278EF44BC8162DE16CF453 /* SignWithKeepKeyCoordFlowView.swift */,
 			);
 			path = CoordFlows;
 			sourceTree = "<group>";
@@ -4141,6 +4292,8 @@
 				34AA6CD92F85774F00D244E2 /* SendRejectSheet.swift */,
 				34AA6CDA2F85774F00D244E2 /* SignWithKeystoneView.swift */,
 				34AA6CDB2F85774F00D244E2 /* SuccessView.swift */,
+				68FB8D1EDE7CFA9C6DB5C03D /* SignWithKeepKeyView.swift */,
+				E8A7EF5E19D1951EB3D15C76 /* SigningInProgressView.swift */,
 			);
 			path = SendConfirmation;
 			sourceTree = "<group>";
@@ -4342,6 +4495,8 @@
 				34AA6D192F85774F00D244E2 /* WhatsNew */,
 				34AA6D1C2F85774F00D244E2 /* ZecKeyboard */,
 				37CEBF0E2F8E940A002DA90E /* Voting */,
+				737CFD0B21DD3A478CB8E9F5 /* AddKeepKeyHWWallet */,
+				86878CF8830A83B382A1702A /* ConnectKeepKey */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -4409,6 +4564,7 @@
 				34AA6D402F85774F00D244E2 /* SharedStateKeys.swift */,
 				34AA6D412F85774F00D244E2 /* XCAssets+Generated.swift */,
 				34AA6D422F85774F00D244E2 /* xcstrings-tool-config.yaml */,
+				1181719ED58700A8299B799F /* Proto */,
 			);
 			path = Generated;
 			sourceTree = "<group>";
@@ -4954,6 +5110,35 @@
 			path = Voting;
 			sourceTree = "<group>";
 		};
+		737CFD0B21DD3A478CB8E9F5 /* AddKeepKeyHWWallet */ = {
+			isa = PBXGroup;
+			children = (
+				E33399ECBC695D599D089197 /* AddKeepKeyHWWalletStore.swift */,
+				51499C39222F1559229B4811 /* AddKeepKeyHWWalletView.swift */,
+				69E92F5D0796DFB991725F98 /* KeepKeyConnectedView.swift */,
+				7486BEADCC6326625311CFEF /* KeepKeyDeviceReadyView.swift */,
+			);
+			path = AddKeepKeyHWWallet;
+			sourceTree = "<group>";
+		};
+		86878CF8830A83B382A1702A /* ConnectKeepKey */ = {
+			isa = PBXGroup;
+			children = (
+				AB0200121F88E33288F4C141 /* ConnectKeepKeyStore.swift */,
+				D84B3A55EBF70385FDD22434 /* ConnectKeepKeyView.swift */,
+			);
+			path = ConnectKeepKey;
+			sourceTree = "<group>";
+		};
+		9DE2680B893314A2B3D7E147 /* KeepKey */ = {
+			isa = PBXGroup;
+			children = (
+				5B8D3A516CF809B5DD271EF6 /* KeepKeyTransportInterface.swift */,
+				6614EC08A3D8E1824FE9DA2D /* KeepKeyTransportLiveKey.swift */,
+			);
+			path = KeepKey;
+			sourceTree = "<group>";
+		};
 		9E01F8262833CD84000EFC57 /* ScanTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -5307,6 +5492,8 @@
 				34AA77B92F85861300D244E2 /* UInt128 */,
 				34B967622F8CC48000823B20 /* Atomics */,
 				9E4841522F869F5F00D0649B /* ZcashLightClientKit */,
+				502316A5129DD0C268A3C3E5 /* SwiftProtobuf */,
+				4360391B7BD346949D4A82A5 /* WalletConnect */,
 			);
 			productName = secant;
 			productReference = 0D26AF94299E8196005260EE /* secant-mainnet.app */;
@@ -5344,6 +5531,8 @@
 				34AA77B72F85860300D244E2 /* UInt128 */,
 				34B9675B2F8CC47200823B20 /* Atomics */,
 				9E4841522F869F5F00D0649B /* ZcashLightClientKit */,
+				49D284AFCCF90B3EB659D111 /* SwiftProtobuf */,
+				29E8A9991B91F14326802621 /* WalletConnect */,
 			);
 			productName = secant;
 			productReference = 0D4E7A0526B364170058B01E /* secant-testnet.app */;
@@ -5363,8 +5552,6 @@
 				0D4E7A1826B364180058B01E /* PBXTargetDependency */,
 			);
 			name = secantTests;
-			packageProductDependencies = (
-			);
 			productName = secantTests;
 			productReference = 0D4E7A1626B364180058B01E /* secantTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -5418,6 +5605,8 @@
 				34AA77A32F8583C300D244E2 /* BigDecimal */,
 				34AA77BF2F85862200D244E2 /* UInt128 */,
 				34B967682F8CC49100823B20 /* Atomics */,
+				F71A052BE967969C9ED17741 /* SwiftProtobuf */,
+				2A36818C38457E5662D1CC11 /* WalletConnect */,
 			);
 			productName = secant;
 			productReference = 9E41FFBB2CB2814500783CFD /* zashi-testnet.app */;
@@ -5455,6 +5644,8 @@
 				34AA77BB2F85861800D244E2 /* UInt128 */,
 				9E4841522F869F5F00D0649B /* ZcashLightClientKit */,
 				34B967642F8CC48700823B20 /* Atomics */,
+				50B4E860D5EE2468FB4C1F70 /* SwiftProtobuf */,
+				3B5AB2C50D6141E4BF1832E2 /* WalletConnect */,
 			);
 			productName = secant;
 			productReference = 9E4AB2B72BA1BEE900F5D6DB /* secant-distrib.app */;
@@ -5492,6 +5683,8 @@
 				34AA77BD2F85861E00D244E2 /* UInt128 */,
 				9E4841522F869F5F00D0649B /* ZcashLightClientKit */,
 				34B967662F8CC48B00823B20 /* Atomics */,
+				0D5501BA0A592D47E6BF0ACC /* SwiftProtobuf */,
+				90DDB9AF4776FB3B327F8685 /* WalletConnect */,
 			);
 			productName = secant;
 			productReference = 9E5AB4822C94777800065483 /* zashi-internal.app */;
@@ -5545,6 +5738,8 @@
 				34AA77B62F85860300D244E2 /* XCRemoteSwiftPackageReference "UInt128" */,
 				9E4841512F869F5E00D0649B /* XCRemoteSwiftPackageReference "zcash-swift-wallet-sdk" */,
 				34B9675A2F8CC47200823B20 /* XCRemoteSwiftPackageReference "swift-atomics" */,
+				2C178E1F2FBF97600099D713 /* XCRemoteSwiftPackageReference "swift-protobuf" */,
+				2C178E202FBF97D70099D713 /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */,
 			);
 			productRefGroup = 0D4E7A0626B364170058B01E /* Products */;
 			projectDirPath = "";
@@ -6553,6 +6748,25 @@
 				9E2706682AFF99F5000DA6EC /* ReadTransactionsStorageModel.xcdatamodeld in Sources */,
 				37D0F0000000000000000010 /* StaticVotingConfig.swift in Sources */,
 				37D0F0000000000000000020 /* RoundAuthenticator.swift in Sources */,
+				A8CBD2590012736D858A8507 /* KeepKeyTransportInterface.swift in Sources */,
+				0C7A713F7D68188BBEB0F3E1 /* KeepKeyTransportLiveKey.swift in Sources */,
+				BAB5DC202AE4D3BE0F8F60A0 /* AddKeepKeyHWWalletStore.swift in Sources */,
+				9239E2A4E30BC875AC1E48C3 /* AddKeepKeyHWWalletView.swift in Sources */,
+				1AD135BA6BE1D4CED0DB93E1 /* KeepKeyConnectedView.swift in Sources */,
+				464F326F794033B9080AAD47 /* KeepKeyDeviceReadyView.swift in Sources */,
+				BA08D1119F8AD7E3CDA83A37 /* ConnectKeepKeyStore.swift in Sources */,
+				3145659C9BAFDC85B4BF529F /* ConnectKeepKeyView.swift in Sources */,
+				6DCD5BA94FCE0835BDF61CBB /* AddKeepKeyHWWalletCoordFlowCoordinator.swift in Sources */,
+				7614FA7C627BEB00AD182DE0 /* AddKeepKeyHWWalletCoordFlowStore.swift in Sources */,
+				63E3B889872F25A8D88A9DC1 /* AddKeepKeyHWWalletCoordFlowView.swift in Sources */,
+				AD55387821DABD3C97FCC90E /* SignWithKeepKeyCoordFlowCoordinator.swift in Sources */,
+				A1B1639D0DBC9F21B7C4BE17 /* SignWithKeepKeyCoordFlowStore.swift in Sources */,
+				0ABCB41D38640837297C1BC0 /* SignWithKeepKeyCoordFlowView.swift in Sources */,
+				0549608A6CCD2A47D02D3891 /* SignWithKeepKeyView.swift in Sources */,
+				46A7CF85822C271BD01AE87F /* messages-zcash.pb.swift in Sources */,
+				EB052AC42337CF00745D1AEE /* messages.pb.swift in Sources */,
+				E5DD896145CDEA133BEDE7D0 /* types.pb.swift in Sources */,
+				2A2F37BB05BF6137C661EFE5 /* SigningInProgressView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7007,6 +7221,25 @@
 				9E2706672AFF99F5000DA6EC /* ReadTransactionsStorageModel.xcdatamodeld in Sources */,
 				37D0F0000000000000000011 /* StaticVotingConfig.swift in Sources */,
 				37D0F0000000000000000021 /* RoundAuthenticator.swift in Sources */,
+				AE8B6F95065858D958BA2279 /* KeepKeyTransportInterface.swift in Sources */,
+				86660E3F7FD1C484A9987AC7 /* KeepKeyTransportLiveKey.swift in Sources */,
+				1D7E4373BAD88041A052EA78 /* AddKeepKeyHWWalletStore.swift in Sources */,
+				22A0C0FE2CB15983EA9A4C8A /* AddKeepKeyHWWalletView.swift in Sources */,
+				6BE183D246118269A41A5E33 /* KeepKeyConnectedView.swift in Sources */,
+				C7A7FFA3EB27F452B191F0C9 /* KeepKeyDeviceReadyView.swift in Sources */,
+				6B3BDFF29C4E76CB6FB29DA3 /* ConnectKeepKeyStore.swift in Sources */,
+				23BD3C1267E271FFE7A7E2B3 /* ConnectKeepKeyView.swift in Sources */,
+				487705E5055CE9EACB060A3B /* AddKeepKeyHWWalletCoordFlowCoordinator.swift in Sources */,
+				296E37BF763CD0842F23FAB5 /* AddKeepKeyHWWalletCoordFlowStore.swift in Sources */,
+				C2393DA038CB96DEEF9EE1D8 /* AddKeepKeyHWWalletCoordFlowView.swift in Sources */,
+				9A4E35D39E40F892C62686EB /* SignWithKeepKeyCoordFlowCoordinator.swift in Sources */,
+				21A80A6B749141F4A9609A82 /* SignWithKeepKeyCoordFlowStore.swift in Sources */,
+				CF758F5E33A4DD6E0786CDE1 /* SignWithKeepKeyCoordFlowView.swift in Sources */,
+				40D5E57895DFBC6DFA4387DC /* SignWithKeepKeyView.swift in Sources */,
+				D10C25CFF9E4F035F89A8675 /* messages-zcash.pb.swift in Sources */,
+				FC8B02677D21EB96EAD05A3E /* messages.pb.swift in Sources */,
+				BC88994E596459E001161F91 /* types.pb.swift in Sources */,
+				60857CC117A74395FA77136A /* SigningInProgressView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7524,6 +7757,25 @@
 				9E41FFA82CB2814500783CFD /* ReadTransactionsStorageModel.xcdatamodeld in Sources */,
 				37D0F0000000000000000012 /* StaticVotingConfig.swift in Sources */,
 				37D0F0000000000000000022 /* RoundAuthenticator.swift in Sources */,
+				C63E2B997A577C54E3A6C042 /* KeepKeyTransportInterface.swift in Sources */,
+				4B3A0AFD1EA4A5F55804AC4B /* KeepKeyTransportLiveKey.swift in Sources */,
+				01AD47531CB08464E4EE009C /* AddKeepKeyHWWalletStore.swift in Sources */,
+				B17ADF01A12E025F6608CE7E /* AddKeepKeyHWWalletView.swift in Sources */,
+				2C77D5F5FC253C14ED7C1DB0 /* KeepKeyConnectedView.swift in Sources */,
+				28AB399F04A8CE306D2D964A /* KeepKeyDeviceReadyView.swift in Sources */,
+				5A595E9E2E4E435AE122FCF9 /* ConnectKeepKeyStore.swift in Sources */,
+				BF410EAC88AB35FE3012D456 /* ConnectKeepKeyView.swift in Sources */,
+				03024EC2F110A973986BD9DA /* AddKeepKeyHWWalletCoordFlowCoordinator.swift in Sources */,
+				D8D0918F3DBAA3480B118405 /* AddKeepKeyHWWalletCoordFlowStore.swift in Sources */,
+				A7B68D88479D2FEEAEA77837 /* AddKeepKeyHWWalletCoordFlowView.swift in Sources */,
+				EF0D8E02B700B3D1BD3A0829 /* SignWithKeepKeyCoordFlowCoordinator.swift in Sources */,
+				4B53ECD4BC6D99ED060692B5 /* SignWithKeepKeyCoordFlowStore.swift in Sources */,
+				DCBBAA84D33178B00B9F9B0C /* SignWithKeepKeyCoordFlowView.swift in Sources */,
+				D020A58B40D482E2AD5C6B77 /* SignWithKeepKeyView.swift in Sources */,
+				C25D393F6163C63A82EA6515 /* messages-zcash.pb.swift in Sources */,
+				DF029B1EA4644D0B2D35E37C /* messages.pb.swift in Sources */,
+				25A2A8AA8925EA699434F4FB /* types.pb.swift in Sources */,
+				17D3D87850FF42F754199980 /* SigningInProgressView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7978,6 +8230,25 @@
 				9E4AB2A42BA1BEE900F5D6DB /* ReadTransactionsStorageModel.xcdatamodeld in Sources */,
 				37D0F0000000000000000013 /* StaticVotingConfig.swift in Sources */,
 				37D0F0000000000000000023 /* RoundAuthenticator.swift in Sources */,
+				80C150757B75183DB9637041 /* KeepKeyTransportInterface.swift in Sources */,
+				C31AC75BFD008AE9F0548EF4 /* KeepKeyTransportLiveKey.swift in Sources */,
+				9AF478E0331712DB8B35D7C1 /* AddKeepKeyHWWalletStore.swift in Sources */,
+				291537EE38736BF9904C1508 /* AddKeepKeyHWWalletView.swift in Sources */,
+				FF0AAAF374096170AB9F3945 /* KeepKeyConnectedView.swift in Sources */,
+				76FB230DA5F08573F682E6D6 /* KeepKeyDeviceReadyView.swift in Sources */,
+				56CFAC4214ECD0F5C84F8360 /* ConnectKeepKeyStore.swift in Sources */,
+				67A3BC3BAA6A8F230103E7FC /* ConnectKeepKeyView.swift in Sources */,
+				8C60879F04FDC0675B2C7140 /* AddKeepKeyHWWalletCoordFlowCoordinator.swift in Sources */,
+				707929D92BAEAF1AE31F9958 /* AddKeepKeyHWWalletCoordFlowStore.swift in Sources */,
+				7DF2928F9060FF0A8D73F784 /* AddKeepKeyHWWalletCoordFlowView.swift in Sources */,
+				0CE955B9C5427DC857AB6485 /* SignWithKeepKeyCoordFlowCoordinator.swift in Sources */,
+				5BEBBD5FC27CE790E87645BF /* SignWithKeepKeyCoordFlowStore.swift in Sources */,
+				0E9922EB12CD8B04941336BE /* SignWithKeepKeyCoordFlowView.swift in Sources */,
+				32AB26D4F8236590CC589526 /* SignWithKeepKeyView.swift in Sources */,
+				AE945CC26F79B21C53DE01A4 /* messages-zcash.pb.swift in Sources */,
+				DCB5E2D157ED7E2CC66B91BF /* messages.pb.swift in Sources */,
+				7D8C0157171CA860EADD13FE /* types.pb.swift in Sources */,
+				7A33C5A531C7183190A83AE8 /* SigningInProgressView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8432,6 +8703,25 @@
 				9E5AB46F2C94777800065483 /* ReadTransactionsStorageModel.xcdatamodeld in Sources */,
 				37D0F0000000000000000014 /* StaticVotingConfig.swift in Sources */,
 				37D0F0000000000000000024 /* RoundAuthenticator.swift in Sources */,
+				60B1CB713511285DEA0500D1 /* KeepKeyTransportInterface.swift in Sources */,
+				A0870F848E08E3CD97C69C66 /* KeepKeyTransportLiveKey.swift in Sources */,
+				77F41698BF72F8C2DE192AEE /* AddKeepKeyHWWalletStore.swift in Sources */,
+				5F5F2E9FF20D00E144DCEE45 /* AddKeepKeyHWWalletView.swift in Sources */,
+				6786C64E8DAE2097999C446C /* KeepKeyConnectedView.swift in Sources */,
+				582C34A58D28777EFFB2577C /* KeepKeyDeviceReadyView.swift in Sources */,
+				526E88E11B81F9D6497AF824 /* ConnectKeepKeyStore.swift in Sources */,
+				5864833FD5713019CB9A934D /* ConnectKeepKeyView.swift in Sources */,
+				258D60A96608C4FFBB0FA32E /* AddKeepKeyHWWalletCoordFlowCoordinator.swift in Sources */,
+				08E105C35C0917C500B97660 /* AddKeepKeyHWWalletCoordFlowStore.swift in Sources */,
+				01F04213FA86B609B346384A /* AddKeepKeyHWWalletCoordFlowView.swift in Sources */,
+				AC999B4C1A15FBCACDBA89C8 /* SignWithKeepKeyCoordFlowCoordinator.swift in Sources */,
+				3E47C127601A697D618DE346 /* SignWithKeepKeyCoordFlowStore.swift in Sources */,
+				295498644F8593B159162854 /* SignWithKeepKeyCoordFlowView.swift in Sources */,
+				4404EDD52847D7B2639CE532 /* SignWithKeepKeyView.swift in Sources */,
+				A0491A672EBA40208CE1DDF3 /* messages-zcash.pb.swift in Sources */,
+				D7805EC13597D373133C9255 /* messages.pb.swift in Sources */,
+				08293C9271DB1A0E73CBC4C3 /* types.pb.swift in Sources */,
+				B6547E7C67297BE22BC186E5 /* SigningInProgressView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8450,23 +8740,23 @@
 		};
 		34AA77C22F85890600D244E2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			productRef = 34AA77C12F85890600D244E2 /* XCStringsToolPlugin */;
+			productRef = 34AA77C12F85890600D244E2 /* plugin:XCStringsToolPlugin */;
 		};
 		34AA77C42F85890F00D244E2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			productRef = 34AA77C32F85890F00D244E2 /* XCStringsToolPlugin */;
+			productRef = 34AA77C32F85890F00D244E2 /* plugin:XCStringsToolPlugin */;
 		};
 		34AA77C82F85891500D244E2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			productRef = 34AA77C72F85891500D244E2 /* XCStringsToolPlugin */;
+			productRef = 34AA77C72F85891500D244E2 /* plugin:XCStringsToolPlugin */;
 		};
 		34AA77CA2F85891A00D244E2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			productRef = 34AA77C92F85891A00D244E2 /* XCStringsToolPlugin */;
+			productRef = 34AA77C92F85891A00D244E2 /* plugin:XCStringsToolPlugin */;
 		};
 		34AA77CC2F85891F00D244E2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			productRef = 34AA77CB2F85891F00D244E2 /* XCStringsToolPlugin */;
+			productRef = 34AA77CB2F85891F00D244E2 /* plugin:XCStringsToolPlugin */;
 		};
 /* End PBXTargetDependency section */
 
@@ -9356,6 +9646,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		2C178E1F2FBF97600099D713 /* XCRemoteSwiftPackageReference "swift-protobuf" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-protobuf";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.38.0;
+			};
+		};
+		2C178E202FBF97D70099D713 /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/WalletConnect/WalletConnectSwiftV2";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.6.6;
+			};
+		};
 		34AA77122F857DA300D244E2 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
@@ -9471,6 +9777,21 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		0D5501BA0A592D47E6BF0ACC /* SwiftProtobuf */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2C178E1F2FBF97600099D713 /* XCRemoteSwiftPackageReference "swift-protobuf" */;
+			productName = SwiftProtobuf;
+		};
+		29E8A9991B91F14326802621 /* WalletConnect */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2C178E202FBF97D70099D713 /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */;
+			productName = WalletConnect;
+		};
+		2A36818C38457E5662D1CC11 /* WalletConnect */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2C178E202FBF97D70099D713 /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */;
+			productName = WalletConnect;
+		};
 		34AA77132F857DA300D244E2 /* ComposableArchitecture */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 34AA77122F857DA300D244E2 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
@@ -9771,27 +10092,27 @@
 			package = 34AA77B62F85860300D244E2 /* XCRemoteSwiftPackageReference "UInt128" */;
 			productName = UInt128;
 		};
-		34AA77C12F85890600D244E2 /* XCStringsToolPlugin */ = {
+		34AA77C12F85890600D244E2 /* plugin:XCStringsToolPlugin */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 34AA77B52F85848A00D244E2 /* XCRemoteSwiftPackageReference "xcstrings-tool-plugin" */;
 			productName = "plugin:XCStringsToolPlugin";
 		};
-		34AA77C32F85890F00D244E2 /* XCStringsToolPlugin */ = {
+		34AA77C32F85890F00D244E2 /* plugin:XCStringsToolPlugin */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 34AA77B52F85848A00D244E2 /* XCRemoteSwiftPackageReference "xcstrings-tool-plugin" */;
 			productName = "plugin:XCStringsToolPlugin";
 		};
-		34AA77C72F85891500D244E2 /* XCStringsToolPlugin */ = {
+		34AA77C72F85891500D244E2 /* plugin:XCStringsToolPlugin */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 34AA77B52F85848A00D244E2 /* XCRemoteSwiftPackageReference "xcstrings-tool-plugin" */;
 			productName = "plugin:XCStringsToolPlugin";
 		};
-		34AA77C92F85891A00D244E2 /* XCStringsToolPlugin */ = {
+		34AA77C92F85891A00D244E2 /* plugin:XCStringsToolPlugin */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 34AA77B52F85848A00D244E2 /* XCRemoteSwiftPackageReference "xcstrings-tool-plugin" */;
 			productName = "plugin:XCStringsToolPlugin";
 		};
-		34AA77CB2F85891F00D244E2 /* XCStringsToolPlugin */ = {
+		34AA77CB2F85891F00D244E2 /* plugin:XCStringsToolPlugin */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 34AA77B52F85848A00D244E2 /* XCRemoteSwiftPackageReference "xcstrings-tool-plugin" */;
 			productName = "plugin:XCStringsToolPlugin";
@@ -9821,10 +10142,45 @@
 			package = 34B9675A2F8CC47200823B20 /* XCRemoteSwiftPackageReference "swift-atomics" */;
 			productName = Atomics;
 		};
+		3B5AB2C50D6141E4BF1832E2 /* WalletConnect */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2C178E202FBF97D70099D713 /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */;
+			productName = WalletConnect;
+		};
+		4360391B7BD346949D4A82A5 /* WalletConnect */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2C178E202FBF97D70099D713 /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */;
+			productName = WalletConnect;
+		};
+		49D284AFCCF90B3EB659D111 /* SwiftProtobuf */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2C178E1F2FBF97600099D713 /* XCRemoteSwiftPackageReference "swift-protobuf" */;
+			productName = SwiftProtobuf;
+		};
+		502316A5129DD0C268A3C3E5 /* SwiftProtobuf */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2C178E1F2FBF97600099D713 /* XCRemoteSwiftPackageReference "swift-protobuf" */;
+			productName = SwiftProtobuf;
+		};
+		50B4E860D5EE2468FB4C1F70 /* SwiftProtobuf */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2C178E1F2FBF97600099D713 /* XCRemoteSwiftPackageReference "swift-protobuf" */;
+			productName = SwiftProtobuf;
+		};
+		90DDB9AF4776FB3B327F8685 /* WalletConnect */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2C178E202FBF97D70099D713 /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */;
+			productName = WalletConnect;
+		};
 		9E4841522F869F5F00D0649B /* ZcashLightClientKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 9E4841512F869F5E00D0649B /* XCRemoteSwiftPackageReference "zcash-swift-wallet-sdk" */;
 			productName = ZcashLightClientKit;
+		};
+		F71A052BE967969C9ED17741 /* SwiftProtobuf */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2C178E1F2FBF97600099D713 /* XCRemoteSwiftPackageReference "swift-protobuf" */;
+			productName = SwiftProtobuf;
 		};
 /* End XCSwiftPackageProductDependency section */
 

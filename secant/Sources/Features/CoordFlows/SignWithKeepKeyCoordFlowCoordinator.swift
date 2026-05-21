@@ -4,6 +4,7 @@
 //
 
 import ComposableArchitecture
+import Foundation
 @preconcurrency import ZcashLightClientKit
 
 extension SignWithKeepKeyCoordFlow {

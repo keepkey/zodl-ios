@@ -15,13 +15,18 @@ struct PartnerKeys {
         static let nearKey = "nearKey"
         static let cmcKey = "cmcKey"
         static let nearFeeDepositAddress = "nearFeeDepositAddress"
+        static let walletConnectProjectId = "walletConnectProjectId"
 #if DEBUG
         static let testSeed = "testSeed"
 #endif
     }
-    
+
     static var cbProjectId: String? {
         PartnerKeys.value(for: Constants.cbProjectId)
+    }
+
+    static var walletConnectProjectId: String? {
+        PartnerKeys.value(for: Constants.walletConnectProjectId)
     }
     
     static var flexaPublishableKey: String? {

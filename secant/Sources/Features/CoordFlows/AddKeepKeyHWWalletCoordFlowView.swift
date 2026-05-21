@@ -10,9 +10,11 @@ struct AddKeepKeyHWWalletCoordFlowView: View {
     @Environment(\.colorScheme) var colorScheme
 
     @Perception.Bindable var store: StoreOf<AddKeepKeyHWWalletCoordFlow>
+    let tokenName: String
 
-    init(store: StoreOf<AddKeepKeyHWWalletCoordFlow>) {
+    init(store: StoreOf<AddKeepKeyHWWalletCoordFlow>, tokenName: String) {
         self.store = store
+        self.tokenName = tokenName
     }
 
     var body: some View {
@@ -79,7 +81,7 @@ struct AddKeepKeyHWWalletCoordFlowView: View {
 
 #Preview {
     NavigationView {
-        AddKeepKeyHWWalletCoordFlowView(store: AddKeepKeyHWWalletCoordFlow.placeholder)
+        AddKeepKeyHWWalletCoordFlowView(store: AddKeepKeyHWWalletCoordFlow.placeholder, tokenName: "ZEC")
     }
 }
 

@@ -60,7 +60,9 @@ extension DependencyValues {
 
 @DependencyClient
 struct KeepKeyTransportClient {
-    var connect: @Sendable () async throws -> Void
+    /// Initiates WalletConnect pairing. Calls `onPairingURI` with the WC URI to display as a QR
+    /// code, then suspends until the KeepKey Desktop peer approves the session.
+    var connect: @Sendable (_ onPairingURI: @Sendable (String) -> Void) async throws -> Void
     var disconnect: @Sendable () async throws -> Void
     var getOrchardFVK: @Sendable (_ account: UInt32) async throws -> OrchardFVK
     var displayAddress: @Sendable (_ request: DisplayAddressRequest) async throws -> String

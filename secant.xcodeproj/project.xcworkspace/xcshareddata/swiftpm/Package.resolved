@@ -1,5 +1,5 @@
 {
-  "originHash" : "4c7373c5f3adfdcdcd7de6ca0dbccee8a5285b0fea671ef4c1ad7b8ee13a0c03",
+  "originHash" : "6fca4b9bc77a65532b41a8603fd5f86d67b556711adcc2e6f94aaa42605a1ae5",
   "pins" : [
     {
       "identity" : "base32",
@@ -134,6 +134,15 @@
       "state" : {
         "revision" : "2d7f3e76e904621e111efada6cc9575f39543bb2",
         "version" : "2.2.5"
+      }
+    },
+    {
+      "identity" : "qrcode",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/WalletConnect/QRCode",
+      "state" : {
+        "revision" : "263f280d2c8144adfb0b6676109846cfc8dd552b",
+        "version" : "14.3.1"
       }
     },
     {
@@ -375,8 +384,17 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-protobuf.git",
       "state" : {
-        "revision" : "81558271e243f8f47dfe8e9fdd55f3c2b5413f68",
-        "version" : "1.37.0"
+        "revision" : "f6506eaa86ed2e01cb0ae14a75035b7fdbf0918f",
+        "version" : "1.38.0"
+      }
+    },
+    {
+      "identity" : "swift-qrcode-generator",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/dagronf/swift-qrcode-generator",
+      "state" : {
+        "revision" : "5ca09b6a2ad190f94aa3d6ddef45b187f8c0343b",
+        "version" : "1.0.3"
       }
     },
     {
@@ -425,6 +443,15 @@
       }
     },
     {
+      "identity" : "swiftimagereadwrite",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/dagronf/SwiftImageReadWrite",
+      "state" : {
+        "revision" : "5596407d1cf61b953b8e658fa8636a471df3c509",
+        "version" : "1.1.6"
+      }
+    },
+    {
       "identity" : "swiftsortedcollections",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/wolfmcnally/SwiftSortedCollections",
@@ -458,6 +485,15 @@
       "state" : {
         "revision" : "c7cf16b03ce061c2d461fb4c635cc27c9e1d00e3",
         "version" : "15.0.0"
+      }
+    },
+    {
+      "identity" : "walletconnectswiftv2",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/WalletConnect/WalletConnectSwiftV2",
+      "state" : {
+        "revision" : "afdc8cdbaf99ad741a7716f8475339c80a92441d",
+        "version" : "6.6.6"
       }
     },
     {

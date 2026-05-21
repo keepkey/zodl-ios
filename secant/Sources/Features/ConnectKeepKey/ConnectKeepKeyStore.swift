@@ -48,10 +48,9 @@ struct ConnectKeepKey {
                 state.connectionStatus = .waitingForPairingURI
                 return .run { send in
                     do {
-                        // TODO: [#4] keepKeyTransport.connect() will emit a pairing URI via a
-                        //       callback or async stream once WalletConnect SDK is integrated
-                        //       (ZI-18). For now, the stub throws notImplemented.
-                        try await keepKeyTransport.connect()
+                        try await keepKeyTransport.connect { uri in
+                            Task { await send(.pairingURIReceived(uri)) }
+                        }
                         await send(.sessionEstablished)
                     } catch {
                         await send(.failed(error.localizedDescription))
