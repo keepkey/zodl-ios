@@ -2469,6 +2469,7 @@
 		5864833FD5713019CB9A934D /* ConnectKeepKeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84B3A55EBF70385FDD22434 /* ConnectKeepKeyView.swift */; };
 		5A595E9E2E4E435AE122FCF9 /* ConnectKeepKeyStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0200121F88E33288F4C141 /* ConnectKeepKeyStore.swift */; };
 		5BEBBD5FC27CE790E87645BF /* SignWithKeepKeyCoordFlowStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B6B8E74711FF1239528CAE /* SignWithKeepKeyCoordFlowStore.swift */; };
+		5EAF9BD21FCFE4857C94A715 /* ConnectKeepKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26457E5610E4372D0C87A68 /* ConnectKeepKeyTests.swift */; };
 		5F5F2E9FF20D00E144DCEE45 /* AddKeepKeyHWWalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51499C39222F1559229B4811 /* AddKeepKeyHWWalletView.swift */; };
 		60857CC117A74395FA77136A /* SigningInProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A7EF5E19D1951EB3D15C76 /* SigningInProgressView.swift */; };
 		60B1CB713511285DEA0500D1 /* KeepKeyTransportInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8D3A516CF809B5DD271EF6 /* KeepKeyTransportInterface.swift */; };
@@ -2641,6 +2642,8 @@
 		CF758F5E33A4DD6E0786CDE1 /* SignWithKeepKeyCoordFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76278EF44BC8162DE16CF453 /* SignWithKeepKeyCoordFlowView.swift */; };
 		D020A58B40D482E2AD5C6B77 /* SignWithKeepKeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FB8D1EDE7CFA9C6DB5C03D /* SignWithKeepKeyView.swift */; };
 		D10C25CFF9E4F035F89A8675 /* messages-zcash.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE2794EB47A4B7008EF89FD /* messages-zcash.pb.swift */; };
+		D1279F2F370A691E698C69C5 /* SignWithKeepKeyCoordFlowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D943F730B0618107D3BC8E9A /* SignWithKeepKeyCoordFlowTests.swift */; };
+		D53D398F338A88FD798CB825 /* AddKeepKeyHWWalletTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED1D31AFCE0F6418C25334C /* AddKeepKeyHWWalletTests.swift */; };
 		D7805EC13597D373133C9255 /* messages.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC547624D0F09B48D381B8B /* messages.pb.swift */; };
 		D8D0918F3DBAA3480B118405 /* AddKeepKeyHWWalletCoordFlowStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D317C9A001D3CE039F256A33 /* AddKeepKeyHWWalletCoordFlowStore.swift */; };
 		DCB5E2D157ED7E2CC66B91BF /* messages.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC547624D0F09B48D381B8B /* messages.pb.swift */; };
@@ -3172,6 +3175,7 @@
 		76278EF44BC8162DE16CF453 /* SignWithKeepKeyCoordFlowView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SignWithKeepKeyCoordFlowView.swift; sourceTree = "<group>"; };
 		7857694E522E4D9DDA45726B /* SignWithKeepKeyCoordFlowCoordinator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SignWithKeepKeyCoordFlowCoordinator.swift; sourceTree = "<group>"; };
 		7DC9305E03A990B970EABFFD /* AddKeepKeyHWWalletCoordFlowView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AddKeepKeyHWWalletCoordFlowView.swift; sourceTree = "<group>"; };
+		8ED1D31AFCE0F6418C25334C /* AddKeepKeyHWWalletTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AddKeepKeyHWWalletTests.swift; sourceTree = "<group>"; };
 		9E01F8272833CDA0000EFC57 /* ScanTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanTests.swift; sourceTree = "<group>"; };
 		9E02B56B27FED475005B809B /* DatabaseFilesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseFilesTests.swift; sourceTree = "<group>"; };
 		9E0C0D6F2AFB842B00D69A16 /* TransactionStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionStateTests.swift; sourceTree = "<group>"; };
@@ -3243,8 +3247,10 @@
 		AD0D00102D00000100000002 /* VotingSessionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VotingSessionTests.swift; sourceTree = "<group>"; };
 		AD0D00112D00000100000002 /* VotingSubmissionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VotingSubmissionTests.swift; sourceTree = "<group>"; };
 		CFE2794EB47A4B7008EF89FD /* messages-zcash.pb.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "messages-zcash.pb.swift"; sourceTree = "<group>"; };
+		D26457E5610E4372D0C87A68 /* ConnectKeepKeyTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ConnectKeepKeyTests.swift; sourceTree = "<group>"; };
 		D317C9A001D3CE039F256A33 /* AddKeepKeyHWWalletCoordFlowStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AddKeepKeyHWWalletCoordFlowStore.swift; sourceTree = "<group>"; };
 		D84B3A55EBF70385FDD22434 /* ConnectKeepKeyView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ConnectKeepKeyView.swift; sourceTree = "<group>"; };
+		D943F730B0618107D3BC8E9A /* SignWithKeepKeyCoordFlowTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SignWithKeepKeyCoordFlowTests.swift; sourceTree = "<group>"; };
 		D9B6B8E74711FF1239528CAE /* SignWithKeepKeyCoordFlowStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SignWithKeepKeyCoordFlowStore.swift; sourceTree = "<group>"; };
 		E33399ECBC695D599D089197 /* AddKeepKeyHWWalletStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AddKeepKeyHWWalletStore.swift; sourceTree = "<group>"; };
 		E8A7EF5E19D1951EB3D15C76 /* SigningInProgressView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SigningInProgressView.swift; sourceTree = "<group>"; };
@@ -3382,6 +3388,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		099B55134F67E8EEA67108E3 /* KeepKeyTests */ = {
+			isa = PBXGroup;
+			children = (
+				D26457E5610E4372D0C87A68 /* ConnectKeepKeyTests.swift */,
+				8ED1D31AFCE0F6418C25334C /* AddKeepKeyHWWalletTests.swift */,
+				D943F730B0618107D3BC8E9A /* SignWithKeepKeyCoordFlowTests.swift */,
+			);
+			name = KeepKeyTests;
+			path = KeepKeyTests;
+			sourceTree = "<group>";
+		};
 		0D4E79FC26B364170058B01E = {
 			isa = PBXGroup;
 			children = (
@@ -3463,6 +3480,7 @@
 				9EF8135927ECC25E0075AF48 /* UtilTests */,
 				34F039B129ABCE8500CF0053 /* WalletConfigProviderTests */,
 				9E139AAD2B07B39700D104B8 /* ZatoshiStringRepresentation */,
+				099B55134F67E8EEA67108E3 /* KeepKeyTests */,
 			);
 			path = secantTests;
 			sourceTree = "<group>";
@@ -7295,6 +7313,9 @@
 				9E34519D29C8484D00177D16 /* HomeFeatureFlagTests.swift in Sources */,
 				9E3451A929C84EC000177D16 /* ScanTests.swift in Sources */,
 				9E3451A829C84EAF00177D16 /* DebugTests.swift in Sources */,
+				5EAF9BD21FCFE4857C94A715 /* ConnectKeepKeyTests.swift in Sources */,
+				D53D398F338A88FD798CB825 /* AddKeepKeyHWWalletTests.swift in Sources */,
+				D1279F2F370A691E698C69C5 /* SignWithKeepKeyCoordFlowTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
