@@ -67,18 +67,18 @@ struct DisconnectHWWallet {
 
             case .disconnectConfirmed:
                 state.isSheetUp = false
-                var keystoneAccount: AccountUUID? = nil
+                var hwWalletAccount: AccountUUID? = nil
                 state.walletAccounts.forEach { account in
-                    if account.vendor == .keystone {
-                        keystoneAccount = account.id
+                    if account.vendor.isHWWallet() {
+                        hwWalletAccount = account.id
                     }
                 }
-                guard let keystoneAccount else {
+                guard let hwWalletAccount else {
                     return .none
                 }
                 return .run { send in
                     do {
-                        try await sdkSynchronizer.deleteAccount(keystoneAccount)
+                        try await sdkSynchronizer.deleteAccount(hwWalletAccount)
                         await send(.disconnectFinished)
                     } catch {
                         await send(.disconnectFailed(error.localizedDescription))

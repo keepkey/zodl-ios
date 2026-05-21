@@ -12,11 +12,14 @@ struct WalletAccount: Equatable, Hashable, Codable, Identifiable {
     enum Vendor: Int, Equatable, Codable, Hashable {
         case keystone = 0
         case zcash
-        
+        case keepKey = 2
+
         func icon() -> Image {
             switch self {
             case .keystone:
                 return Asset.Assets.Partners.keystoneLogo.image
+            case .keepKey:
+                return Asset.Assets.Partners.keystoneLogo.image  // TODO [#3]: replace with KeepKey icon (ZI-31)
             case .zcash:
                 return Asset.Assets.Icons.zashiLogoSq.image
             }
@@ -25,15 +28,17 @@ struct WalletAccount: Equatable, Hashable, Codable, Identifiable {
         func isDefault() -> Bool {
             self == .zcash
         }
-        
+
         func isHWWallet() -> Bool {
             self != .zcash
         }
-        
+
         func name() -> String {
             switch self {
             case .keystone:
                 return String(localizable: .accountsKeystone)
+            case .keepKey:
+                return String(localizable: .accountsKeepkey)
             case .zcash:
                 return String(localizable: .accountsZashi)
             }
@@ -66,7 +71,14 @@ struct WalletAccount: Equatable, Hashable, Codable, Identifiable {
 
     init(_ account: Account) {
         self.id = account.id
-        self.vendor = account.keySource == String(localizable: .accountsKeystone).lowercased() ? .keystone : .zcash
+        let source = account.keySource ?? ""
+        if source == String(localizable: .accountsKeystone).lowercased() {
+            self.vendor = .keystone
+        } else if source == String(localizable: .accountsKeepkey).lowercased() {
+            self.vendor = .keepKey
+        } else {
+            self.vendor = .zcash
+        }
         self.seedFingerprint = account.seedFingerprint
         self.zip32AccountIndex = account.hdAccountIndex
         self.account = account

@@ -4,6 +4,303 @@
     " %@" : {
 
     },
+    "accounts.keepkey" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "KeepKey"
+          }
+        }
+      }
+    },
+    "deleteKeepkeyDesc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Disconnecting your hardware wallet will permanently delete some local data that can't be recovered from the blockchain."
+          }
+        }
+      }
+    },
+    "deleteKeepkeyTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Disconnect KeepKey"
+          }
+        }
+      }
+    },
+    "keepkey.addHWWallet.close" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Close"
+          }
+        }
+      }
+    },
+    "keepkey.addHWWallet.connect" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connect KeepKey"
+          }
+        }
+      }
+    },
+    "keepkey.addHWWallet.connectActive" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connect active device"
+          }
+        }
+      }
+    },
+    "keepkey.addHWWallet.connectNew" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connect new device"
+          }
+        }
+      }
+    },
+    "keepkey.addHWWallet.connected" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connected!"
+          }
+        }
+      }
+    },
+    "keepkey.addHWWallet.connectedDesc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your KeepKey hardware wallet has been successfully connected."
+          }
+        }
+      }
+    },
+    "keepkey.addHWWallet.desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scan the QR code with KeepKey Desktop to pair via WalletConnect, then sign transactions with your hardware wallet."
+          }
+        }
+      }
+    },
+    "keepkey.addHWWallet.deviceDesc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connecting to a hardware wallet that was previously connected to Zashi will require synchronization to discover your transaction history."
+          }
+        }
+      }
+    },
+    "keepkey.addHWWallet.deviceQuestion" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New or Active Device?"
+          }
+        }
+      }
+    },
+    "keepkey.addHWWallet.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connect KeepKey"
+          }
+        }
+      }
+    },
+    "keepkey.addHWWallet.waitingForApproval" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Waiting for KeepKey Desktop to approve…"
+          }
+        }
+      }
+    },
+    "keepkey.addHWWallet.walletConnectDesc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open KeepKey Desktop and scan this QR code to pair."
+          }
+        }
+      }
+    },
+    "keepkey.addHWWallet.walletConnectPairing" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scan with KeepKey Desktop"
+          }
+        }
+      }
+    },
+    "keepkey.connect" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connect Hardware Wallet"
+          }
+        }
+      }
+    },
+    "keepkey.signWith.desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The transaction is being signed by your KeepKey device. Please approve it on the device."
+          }
+        }
+      }
+    },
+    "keepkey.signWith.getSignature" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign Transaction"
+          }
+        }
+      }
+    },
+    "keepkey.signWith.hardware" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hardware"
+          }
+        }
+      }
+    },
+    "keepkey.signWith.reject" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reject"
+          }
+        }
+      }
+    },
+    "keepkey.signWith.signTransaction" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign Transaction"
+          }
+        }
+      }
+    },
+    "keepkey.signWith.signing" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Signing with KeepKey…"
+          }
+        }
+      }
+    },
+    "keepkey.signWith.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign with your KeepKey"
+          }
+        }
+      }
+    },
+    "keepkey.wallet" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "KeepKey Wallet"
+          }
+        }
+      }
+    },
+    "settings.keepkey" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connect KeepKey"
+          }
+        }
+      }
+    },
+    "settings.keepkeyDesc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connect KeepKey hardware wallet to store shielded ZEC."
+          }
+        }
+      }
+    },
     "—" : {
 
     },

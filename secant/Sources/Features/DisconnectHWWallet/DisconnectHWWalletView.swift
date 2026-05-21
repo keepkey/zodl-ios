@@ -17,14 +17,22 @@ struct DisconnectHWWalletView: View {
         self.store = store
     }
 
+    private var connectedVendor: WalletAccount.Vendor {
+        store.walletAccounts.first(where: { $0.vendor.isHWWallet() })?.vendor ?? .keystone
+    }
+
     var body: some View {
         WithPerceptionTracking {
             VStack(alignment: .leading, spacing: 0) {
-                Text(localizable: .deleteKeystoneTitle)
+                Text(connectedVendor == .keepKey
+                     ? String(localizable: .deleteKeepkeyTitle)
+                     : String(localizable: .deleteKeystoneTitle))
                     .zFont(.semiBold, size: 24, style: Design.Text.primary)
                     .padding(.top, 40)
 
-                Text(localizable: .deleteKeystoneDesc)
+                Text(connectedVendor == .keepKey
+                     ? String(localizable: .deleteKeepkeyDesc)
+                     : String(localizable: .deleteKeystoneDesc))
                     .zFont(.medium, size: 16, style: Design.Text.primary)
                     .padding(.top, 12)
                     .lineSpacing(2)
@@ -42,7 +50,7 @@ struct DisconnectHWWalletView: View {
 
                 Spacer()
                 
-                keystoneBadge()
+                hwWalletBadge()
                     .padding(.bottom, Design.Spacing._3xl)
 
                 if store.isProcessing {
@@ -92,9 +100,10 @@ struct DisconnectHWWalletView: View {
         .screenTitle(String(localizable: .disconnectHWWalletTitle))
     }
 
-    @ViewBuilder func keystoneBadge() -> some View {
+    @ViewBuilder func hwWalletBadge() -> some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack(spacing: 0) {
+                // TODO: [#1] Replace with KeepKey logo asset when ZI-31 is done
                 Asset.Assets.Partners.keystoneSeekLogo.image
                     .resizable()
                     .frame(width: 44, height: 44)
@@ -111,15 +120,17 @@ struct DisconnectHWWalletView: View {
                             }
                     }
                     .padding(.trailing, Design.Spacing._xl)
-                
+
                 VStack(alignment: .leading, spacing: 4) {
-                    Text(localizable: .keystoneHW)
+                    Text(connectedVendor == .keepKey
+                         ? String(localizable: .keepkeyWallet)
+                         : String(localizable: .keystoneHW))
                         .zFont(.semiBold, size: 16, style: Design.Text.primary)
-                    
+
                     Text(localizable: .currentlyConnected)
                         .zFont(size: 14, style: Design.Text.primary)
                 }
-                
+
                 Spacer()
             }
             .frame(maxWidth: .infinity)
@@ -138,7 +149,7 @@ struct DisconnectHWWalletView: View {
                 Asset.Assets.infoOutline.image
                     .zImage(size: 16, style: Design.Text.tertiary)
                     .padding(.trailing, 12)
-                
+
                 Text(localizable: .connectedHWInfo)
                     .zFont(size: 12, style: Design.Text.tertiary)
             }
