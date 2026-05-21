@@ -29,9 +29,8 @@ extension HomeView {
             }
 
             if !store.isKeepKeyConnected {
-                // TODO: [#3] Replace keystoneSeekLogo with KeepKey logo asset when ZI-31 is done
                 ActionRow(
-                    icon: Asset.Assets.Partners.keystoneSeekLogo.image,
+                    icon: Asset.Assets.Partners.keepkey.image,
                     title: String(localizable: .settingsKeepkey),
                     desc: String(localizable: .settingsKeepkeyDesc),
                     customIcon: true,
