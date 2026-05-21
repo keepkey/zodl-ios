@@ -157,7 +157,13 @@ struct SendConfirmationView: View {
                 
                 Spacer()
 
-                if store.selectedWalletAccount?.vendor == .keystone {
+                if store.selectedWalletAccount?.vendor == .keepKey {
+                    ZashiButton(String(localizable: .keepkeyConfirm)) {
+                        store.send(.confirmWithKeepKeyTapped)
+                    }
+                    .screenHorizontalPadding()
+                    .padding(.bottom, 24)
+                } else if store.selectedWalletAccount?.vendor == .keystone {
                     ZashiButton(String(localizable: .keystoneConfirm)) {
                         store.send(.confirmWithKeystoneTapped)
                     }
@@ -189,7 +195,7 @@ struct SendConfirmationView: View {
             }
             .onAppear { store.send(.onAppear) }
             .screenTitle(
-                store.selectedWalletAccount?.vendor == .keystone
+                store.selectedWalletAccount?.vendor.isHWWallet() == true
                 ? String(localizable: .sendReview)
                 : String(localizable: .sendConfirmationTitle)
             )

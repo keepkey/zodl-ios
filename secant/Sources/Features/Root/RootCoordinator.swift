@@ -46,6 +46,28 @@ extension Root {
                     .send(.fetchTransactionsForTheSelectedAccount)
                 )
 
+                // MARK: - Add KeepKey HW Wallet Coord Flow
+
+            case .addKeepKeyHWWalletCoordFlow(.path(.element(id: _, action: .keepKeyDeviceReady(.forgetThisDeviceTapped)))):
+                state.path = nil
+                return .none
+
+            case .addKeepKeyHWWalletCoordFlow(.path(.element(id: _, action: .keepKeyDeviceReady(.accountImportSucceeded)))):
+                state.path = nil
+                state.autoUpdateSwapCandidates.removeAll()
+                return .merge(
+                    .send(.loadContacts),
+                    .concatenate(
+                        .send(.resolveMetadataEncryptionKeys),
+                        .send(.loadUserMetadata)
+                    ),
+                    .send(.fetchTransactionsForTheSelectedAccount)
+                )
+
+            case .addKeepKeyHWWalletCoordFlow(.addKeepKeyHWWallet(.closeTapped)):
+                state.path = nil
+                return .none
+
                 // MARK: - Add Keystone HW Wallet Coord Flow
 
             case .addKeystoneHWWalletCoordFlow(.path(.element(id: _, action: .restoreInfo(.gotItTapped)))):
@@ -193,6 +215,11 @@ extension Root {
             case .home(.flexaTapped), .settings(.payWithFlexaTapped):
                 return .send(.flexaOpenRequest)
                 
+            case .home(.addKeepKeyHWWalletTapped):
+                state.addKeepKeyHWWalletCoordFlowState = .initial
+                state.path = .addKeepKeyHWWalletCoordFlow
+                return .none
+
             case .home(.addKeystoneHWWalletTapped):
                 state.addKeystoneHWWalletCoordFlowState = .initial
                 state.path = .addKeystoneHWWalletCoordFlow
@@ -246,6 +273,37 @@ extension Root {
             case .home(.smartBanner(.serverSwitchRequested)):
                 state.serverSetupState = .initial
                 state.path = .serverSwitch
+                return .none
+
+                // MARK: - KeepKey
+
+            case .sendCoordFlow(.path(.element(id: _, action: .sendConfirmation(.confirmWithKeepKeyTapped)))):
+                state.signWithKeepKeyCoordFlowState = .initial
+                for element in state.sendCoordFlowState.path {
+                    if case .sendConfirmation(let confirmState) = element {
+                        state.signWithKeepKeyCoordFlowState.sendConfirmationState = confirmState
+                        break
+                    }
+                }
+                state.signWithKeepKeyCoordFlowBinding = true
+                return .send(.signWithKeepKeyCoordFlow(.sendConfirmation(.resolvePCZT)))
+
+            case .signWithKeepKeyRequested:
+                state.signWithKeepKeyCoordFlowBinding = true
+                return .send(.signWithKeepKeyCoordFlow(.sendConfirmation(.resolvePCZT)))
+
+            case .signWithKeepKeyCoordFlow(.sendConfirmation(.rejectTapped)):
+                state.signWithKeepKeyCoordFlowBinding = false
+                return .none
+
+            case .signWithKeepKeyCoordFlow(.path(.element(id: _, action: .sendResultSuccess(.closeTapped)))),
+                    .signWithKeepKeyCoordFlow(.path(.element(id: _, action: .sendResultFailure(.closeTapped)))),
+                    .signWithKeepKeyCoordFlow(.path(.element(id: _, action: .sendResultPending(.closeTapped)))):
+                state.signWithKeepKeyCoordFlowBinding = false
+                return .send(.fetchTransactionsForTheSelectedAccount)
+
+            case .signWithKeepKeyCoordFlow(.path(.element(id: _, action: .transactionDetails(.closeDetailTapped)))):
+                state.signWithKeepKeyCoordFlowBinding = false
                 return .none
 
                 // MARK: - Keystone

@@ -135,6 +135,7 @@ struct SendConfirmation {
         case binding(BindingAction<SendConfirmation.State>)
         case cancelTapped
         case closeTapped
+        case confirmWithKeepKeyTapped
         case confirmWithKeystoneTapped
         case enlargeQRCodeTapped
         case getSignatureTapped
@@ -418,6 +419,9 @@ struct SendConfirmation {
                 state.rejectSendRequest = false
                 return .send(.resetPCZTs)
                 
+            case .confirmWithKeepKeyTapped:
+                return .none
+
             case .confirmWithKeystoneTapped:
                 return .none
 

@@ -174,6 +174,16 @@ private extension RootView {
                                 )
                                 .transition(.move(edge: .trailing))
                                 .zIndex(1)
+                            } else if path == .addKeepKeyHWWalletCoordFlow {
+                                AddKeepKeyHWWalletCoordFlowView(
+                                    store:
+                                        store.scope(
+                                            state: \.addKeepKeyHWWalletCoordFlowState,
+                                            action: \.addKeepKeyHWWalletCoordFlow),
+                                    tokenName: tokenName
+                                )
+                                .transition(.move(edge: .trailing))
+                                .zIndex(1)
                             } else if path == .addKeystoneHWWalletCoordFlow {
                                 AddKeystoneHWWalletCoordFlowView(
                                     store:
@@ -251,6 +261,15 @@ private extension RootView {
                                 .zIndex(1)
                             }
                         }
+                    }
+                    .popover(isPresented: $store.signWithKeepKeyCoordFlowBinding) {
+                        SignWithKeepKeyCoordFlowView(
+                            store:
+                                store.scope(
+                                    state: \.signWithKeepKeyCoordFlowState,
+                                    action: \.signWithKeepKeyCoordFlow),
+                            tokenName: tokenName
+                        )
                     }
                     .popover(isPresented: $store.signWithKeystoneCoordFlowBinding) {
                         // FIXME: missing back button?

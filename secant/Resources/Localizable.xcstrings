@@ -180,6 +180,17 @@
         }
       }
     },
+    "keepkey.confirm" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirm with KeepKey"
+          }
+        }
+      }
+    },
     "keepkey.connect" : {
       "extractionState" : "manual",
       "localizations" : {

@@ -66,6 +66,7 @@ struct Home {
 
     enum Action: BindableAction, Equatable {
         case accountSwitchTapped
+        case addKeepKeyHWWalletTapped
         case addKeystoneHWWalletTapped
         case alert(PresentationAction<Action>)
         case binding(BindingAction<Home.State>)
@@ -312,6 +313,11 @@ struct Home {
                 
             case .accountSwitchTapped:
                 state.accountSwitchRequest.toggle()
+                return .none
+
+            case .addKeepKeyHWWalletTapped:
+                state.accountSwitchRequest = false
+                state.moreRequest = false
                 return .none
 
             case .addKeystoneHWWalletTapped:

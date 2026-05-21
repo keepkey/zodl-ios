@@ -31,6 +31,15 @@ extension Root {
                 case .grpc:
                     state.alert = AlertState.shieldFundsGrpc()
                 case .proposal(let proposal):
+                    if state.selectedWalletAccount?.vendor == .keepKey {
+                        state.signWithKeepKeyCoordFlowState = .initial
+                        state.signWithKeepKeyCoordFlowState.sendConfirmationState.proposal = proposal
+                        state.signWithKeepKeyCoordFlowState.sendConfirmationState.isShielding = true
+                        return .run { send in
+                            try? await mainQueue.sleep(for: .seconds(0.8))
+                            await send(.signWithKeepKeyRequested)
+                        }
+                    }
                     state.signWithKeystoneCoordFlowState = .initial
                     state.signWithKeystoneCoordFlowState.sendConfirmationState.proposal = proposal
                     state.signWithKeystoneCoordFlowState.sendConfirmationState.isShielding = true

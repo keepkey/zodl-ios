@@ -14,6 +14,7 @@ struct Root {
     @ObservableState
     struct State {
         enum Path {
+            case addKeepKeyHWWalletCoordFlow
             case addKeystoneHWWalletCoordFlow
             case currencyConversionSetup
             case receive
@@ -69,6 +70,7 @@ struct Root {
         @Shared(.inMemory(.selectedWalletAccount)) var selectedWalletAccount: WalletAccount? = nil
         var serverSetupState: ServerSetup.State
         var serverSetupViewBinding = false
+        var signWithKeepKeyCoordFlowBinding = false
         var signWithKeystoneCoordFlowBinding = false
         var splashAppeared = false
         var supportData: SupportData?
@@ -90,6 +92,7 @@ struct Root {
         var autoUpdateSwapCandidates: IdentifiedArrayOf<TransactionState> = []
         @Shared(.inMemory(.swapAssets)) var swapAssets: IdentifiedArrayOf<SwapAsset> = []
 
+        var addKeepKeyHWWalletCoordFlowState = AddKeepKeyHWWalletCoordFlow.State.initial
         var addKeystoneHWWalletCoordFlowState = AddKeystoneHWWalletCoordFlow.State.initial
         var currencyConversionSetupState = CurrencyConversionSetup.State.initial
         var receiveState = Receive.State.initial
@@ -97,6 +100,7 @@ struct Root {
         var scanCoordFlowState = ScanCoordFlow.State.initial
         var sendCoordFlowState = SendCoordFlow.State.initial
         var settingsState = Settings.State.initial
+        var signWithKeepKeyCoordFlowState = SignWithKeepKeyCoordFlow.State.initial
         var signWithKeystoneCoordFlowState = SignWithKeystoneCoordFlow.State.initial
         var swapAndPayCoordFlowState = SwapAndPayCoordFlow.State.initial
         var transactionsCoordFlowState = TransactionsCoordFlow.State.initial
@@ -176,6 +180,7 @@ struct Root {
         case walletConfigLoaded(WalletConfig)
         case welcome(Welcome.Action)
 
+        case addKeepKeyHWWalletCoordFlow(AddKeepKeyHWWalletCoordFlow.Action)
         case addKeystoneHWWalletCoordFlow(AddKeystoneHWWalletCoordFlow.Action)
         case currencyConversionSetup(CurrencyConversionSetup.Action)
         case receive(Receive.Action)
@@ -184,6 +189,8 @@ struct Root {
         case sendAgainRequested(TransactionState)
         case sendCoordFlow(SendCoordFlow.Action)
         case settings(Settings.Action)
+        case signWithKeepKeyCoordFlow(SignWithKeepKeyCoordFlow.Action)
+        case signWithKeepKeyRequested
         case signWithKeystoneCoordFlow(SignWithKeystoneCoordFlow.Action)
         case signWithKeystoneRequested
         case swapAndPayCoordFlow(SwapAndPayCoordFlow.Action)
@@ -326,6 +333,10 @@ struct Root {
             ScanCoordFlow()
         }
         
+        Scope(state: \.addKeepKeyHWWalletCoordFlowState, action: \.addKeepKeyHWWalletCoordFlow) {
+            AddKeepKeyHWWalletCoordFlow()
+        }
+
         Scope(state: \.addKeystoneHWWalletCoordFlowState, action: \.addKeystoneHWWalletCoordFlow) {
             AddKeystoneHWWalletCoordFlow()
         }
@@ -340,6 +351,10 @@ struct Root {
 
         Scope(state: \.currencyConversionSetupState, action: \.currencyConversionSetup) {
             CurrencyConversionSetup()
+        }
+
+        Scope(state: \.signWithKeepKeyCoordFlowState, action: \.signWithKeepKeyCoordFlow) {
+            SignWithKeepKeyCoordFlow()
         }
 
         Scope(state: \.signWithKeystoneCoordFlowState, action: \.signWithKeystoneCoordFlow) {
