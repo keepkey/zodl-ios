@@ -11,6 +11,7 @@ import ComposableArchitecture
 struct AddKeepKeyHWWalletCoordFlow {
     @Reducer
     enum Path {
+        case connectKeepKey(ConnectKeepKey)
         case estimateBirthdaysDate(WalletBirthday)
         case estimatedBirthday(WalletBirthday)
         case keepKeyConnected(AddKeepKeyHWWallet)

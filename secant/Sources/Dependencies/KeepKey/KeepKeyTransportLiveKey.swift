@@ -13,6 +13,7 @@
 import Combine
 import ComposableArchitecture
 import Foundation
+import Security
 import SwiftProtobuf
 import WalletConnectRelay
 import WalletConnectSign
@@ -154,13 +155,73 @@ private enum WCConfiguration {
     }
 }
 
+// MARK: - ZI-22: Keychain session persistence
+//
+// Stores the active WalletConnect session topic so the user only needs to
+// scan the QR code once per install. The topic is cleared on explicit disconnect.
+
+private enum WCSessionKeychain {
+    private static let service = "com.keepkey.wc.session"
+    private static let account = "topic"
+
+    static func load() -> String? {
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: service,
+            kSecAttrAccount as String: account,
+            kSecMatchLimit as String: kSecMatchLimitOne,
+            kSecReturnData as String: true
+        ]
+        var result: AnyObject?
+        guard SecItemCopyMatching(query as CFDictionary, &result) == errSecSuccess,
+              let data = result as? Data else { return nil }
+        return String(data: data, encoding: .utf8)
+    }
+
+    static func save(_ topic: String) {
+        let data = Data(topic.utf8)
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: service,
+            kSecAttrAccount as String: account
+        ]
+        if SecItemUpdate(query as CFDictionary, [kSecValueData as String: data] as CFDictionary) == errSecItemNotFound {
+            var addQuery = query
+            addQuery[kSecValueData as String] = data
+            addQuery[kSecAttrAccessible as String] = kSecAttrAccessibleWhenUnlockedThisDeviceOnly
+            SecItemAdd(addQuery as CFDictionary, nil)
+        }
+    }
+
+    static func delete() {
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: service,
+            kSecAttrAccount as String: account
+        ]
+        SecItemDelete(query as CFDictionary)
+    }
+}
+
 // MARK: - Active session store
 
 private actor SessionStore {
     var topic: String?
 
-    func set(_ topic: String) { self.topic = topic }
-    func clear() { topic = nil }
+    init() {
+        self.topic = WCSessionKeychain.load()
+    }
+
+    func set(_ topic: String) {
+        self.topic = topic
+        WCSessionKeychain.save(topic)
+    }
+
+    func clear() {
+        topic = nil
+        WCSessionKeychain.delete()
+    }
+
     func current() -> String? { topic }
 }
 

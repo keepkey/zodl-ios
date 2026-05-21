@@ -52,6 +52,7 @@ struct AddKeepKeyHWWallet {
         case onAppear
         case setBirthdayTapped
         case unlockTapped(BlockHeight?)
+        case wcSessionReady
     }
 
     init() { }
@@ -70,10 +71,14 @@ struct AddKeepKeyHWWallet {
                 return .none
 
             case .connectTapped:
+                // Coord flow intercepts this and pushes ConnectKeepKeyView (QR pairing screen).
+                // Transport work happens in wcSessionReady once the session is established.
+                return .none
+
+            case .wcSessionReady:
                 state.connectionStatus = .connecting
                 return .run { send in
                     do {
-                        try await keepKeyTransport.connect()
                         let fvk = try await keepKeyTransport.getOrchardFVK(0)
                         let request = DisplayAddressRequest(
                             account: 0,

@@ -12,6 +12,20 @@ extension AddKeepKeyHWWalletCoordFlow {
 
                 // MARK: - Root (AddKeepKeyHWWallet)
 
+            case .addKeepKeyHWWallet(.connectTapped):
+                state.path.append(.connectKeepKey(ConnectKeepKey.State()))
+                return .none
+
+                // MARK: - ConnectKeepKey (WalletConnect pairing / QR)
+
+            case .path(.element(id: _, action: .connectKeepKey(.sessionEstablished))):
+                state.path.removeLast()
+                return .send(.addKeepKeyHWWallet(.wcSessionReady))
+
+            case .path(.element(id: _, action: .connectKeepKey(.cancelTapped))):
+                state.path.removeLast()
+                return .none
+
             case .addKeepKeyHWWallet(.connectionSucceeded(let fvk)):
                 var deviceReadyState = AddKeepKeyHWWallet.State.initial
                 deviceReadyState.connectionStatus = .connected(fvk)

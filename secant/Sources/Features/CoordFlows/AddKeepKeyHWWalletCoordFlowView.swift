@@ -32,6 +32,8 @@ struct AddKeepKeyHWWalletCoordFlowView: View {
                 }
             } destination: { store in
                 switch store.case {
+                case let .connectKeepKey(store):
+                    ConnectKeepKeyView(store: store)
                 case let .estimateBirthdaysDate(store):
                     WalletBirthdayEstimateDateView(store: store)
                 case let .estimatedBirthday(store):
