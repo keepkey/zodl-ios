@@ -28,6 +28,20 @@ extension HomeView {
                 .padding(.bottom, store.isKeystoneAccountActive ? 24 : 0)
             }
 
+            if !store.isKeepKeyConnected {
+                // TODO: [#3] Replace keystoneSeekLogo with KeepKey logo asset when ZI-31 is done
+                ActionRow(
+                    icon: Asset.Assets.Partners.keystoneSeekLogo.image,
+                    title: String(localizable: .settingsKeepkey),
+                    desc: String(localizable: .settingsKeepkeyDesc),
+                    customIcon: true,
+                    divider: true
+                ) {
+                    store.send(.addKeepKeyHWWalletTapped)
+                }
+                .padding(.bottom, 12)
+            }
+
             if !store.isKeystoneConnected {
                 ActionRow(
                     icon: Asset.Assets.Partners.keystone.image,

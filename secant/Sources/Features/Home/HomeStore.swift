@@ -31,17 +31,25 @@ struct Home {
             smartBannerState.isOpen
         }
 
+        var isKeepKeyAccountActive: Bool {
+            selectedWalletAccount?.vendor == .keepKey
+        }
+
+        var isKeepKeyConnected: Bool {
+            walletAccounts.contains { $0.vendor == .keepKey }
+        }
+
         var isKeystoneAccountActive: Bool {
             selectedWalletAccount?.vendor == .keystone
         }
-        
+
         var isKeystoneConnected: Bool {
             for account in walletAccounts {
                 if account.vendor == .keystone {
                     return true
                 }
             }
-            
+
             return false
         }
 

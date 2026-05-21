@@ -36,12 +36,21 @@ extension HomeView {
                     }
 
                 ZashiButton(
+                    String(localizable: .keepkeyConnect),
+                    type: .secondary
+                ) {
+                    store.send(.addKeepKeyHWWalletTapped)
+                }
+                .padding(.top, 16)
+                .padding(.horizontal, 20)
+
+                ZashiButton(
                     String(localizable: .keystoneConnect),
                     type: .secondary
                 ) {
                     store.send(.addKeystoneHWWalletTapped)
                 }
-                .padding(.top, 32)
+                .padding(.top, 12)
                 .padding(.horizontal, 20)
                 .padding(.bottom, Design.Spacing.sheetBottomSpace)
             } else {
