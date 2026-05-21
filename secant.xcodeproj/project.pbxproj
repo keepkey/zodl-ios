@@ -2454,6 +2454,7 @@
 		37D0F0000000000000000022 /* RoundAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D0F0000000000000000002 /* RoundAuthenticator.swift */; };
 		37D0F0000000000000000023 /* RoundAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D0F0000000000000000002 /* RoundAuthenticator.swift */; };
 		37D0F0000000000000000024 /* RoundAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D0F0000000000000000002 /* RoundAuthenticator.swift */; };
+		39096758819F1DFC7EFFB081 /* KeepKeySnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DC2D37289809CFEB265866 /* KeepKeySnapshotTests.swift */; };
 		3E47C127601A697D618DE346 /* SignWithKeepKeyCoordFlowStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B6B8E74711FF1239528CAE /* SignWithKeepKeyCoordFlowStore.swift */; };
 		40D5E57895DFBC6DFA4387DC /* SignWithKeepKeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FB8D1EDE7CFA9C6DB5C03D /* SignWithKeepKeyView.swift */; };
 		4404EDD52847D7B2639CE532 /* SignWithKeepKeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FB8D1EDE7CFA9C6DB5C03D /* SignWithKeepKeyView.swift */; };
@@ -3165,6 +3166,7 @@
 		37D0F0000000000000000001 /* StaticVotingConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticVotingConfig.swift; sourceTree = "<group>"; };
 		37D0F0000000000000000002 /* RoundAuthenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundAuthenticator.swift; sourceTree = "<group>"; };
 		51499C39222F1559229B4811 /* AddKeepKeyHWWalletView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AddKeepKeyHWWalletView.swift; sourceTree = "<group>"; };
+		58DC2D37289809CFEB265866 /* KeepKeySnapshotTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = KeepKeySnapshotTests.swift; sourceTree = "<group>"; };
 		5B8D3A516CF809B5DD271EF6 /* KeepKeyTransportInterface.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = KeepKeyTransportInterface.swift; sourceTree = "<group>"; };
 		6614EC08A3D8E1824FE9DA2D /* KeepKeyTransportLiveKey.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = KeepKeyTransportLiveKey.swift; sourceTree = "<group>"; };
 		68FB8D1EDE7CFA9C6DB5C03D /* SignWithKeepKeyView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SignWithKeepKeyView.swift; sourceTree = "<group>"; };
@@ -5148,6 +5150,15 @@
 			path = ConnectKeepKey;
 			sourceTree = "<group>";
 		};
+		9075D866AC1382B5FFB63D1D /* KeepKeySnapshotTests */ = {
+			isa = PBXGroup;
+			children = (
+				58DC2D37289809CFEB265866 /* KeepKeySnapshotTests.swift */,
+			);
+			name = KeepKeySnapshotTests;
+			path = KeepKeySnapshotTests;
+			sourceTree = "<group>";
+		};
 		9DE2680B893314A2B3D7E147 /* KeepKey */ = {
 			isa = PBXGroup;
 			children = (
@@ -5246,6 +5257,7 @@
 				9E92AF0728530EBF007367AD /* View+UIImage.swift */,
 				9E7CB6102869881300A02233 /* TransactionListSnapshotTests */,
 				9E9ECC8D28589E150099D5A2 /* WelcomeSnapshotTests */,
+				9075D866AC1382B5FFB63D1D /* KeepKeySnapshotTests */,
 			);
 			path = SnapshotTests;
 			sourceTree = "<group>";
@@ -7316,6 +7328,7 @@
 				5EAF9BD21FCFE4857C94A715 /* ConnectKeepKeyTests.swift in Sources */,
 				D53D398F338A88FD798CB825 /* AddKeepKeyHWWalletTests.swift in Sources */,
 				D1279F2F370A691E698C69C5 /* SignWithKeepKeyCoordFlowTests.swift in Sources */,
+				39096758819F1DFC7EFFB081 /* KeepKeySnapshotTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
